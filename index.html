@@ -19,1361 +19,331 @@
   --bg: #FFFFFF;
   --bg-2: #FAFAFA;
   --bg-3: #F5F5F5;
-  --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.04);
-  --shadow-lg: 0 8px 40px rgba(0,0,0,0.09), 0 2px 8px rgba(0,0,0,0.05);
-}
-
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: #fff;
-  color: var(--dark);
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* ───── NAVBAR ───── */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 9999;
-  height: 64px;
-  background: rgba(255,255,255,0.97);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  padding: 0 40px;
-}
-
-.nav-logo {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  margin-right: 40px;
-  flex-shrink: 0;
-}
-
-.nav-logo-text {
-  font-family: 'Syne', sans-serif;
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--black);
-  letter-spacing: -0.5px;
-}
-
-.nav-logo-text span { color: var(--red); }
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  list-style: none;
-  flex: 1;
-}
-
-.nav-item { position: relative; }
-
-.nav-link {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 8px 14px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--mid);
-  text-decoration: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: color 0.15s, background 0.15s;
-  white-space: nowrap;
-  border: none;
-  background: none;
-  font-family: 'DM Sans', sans-serif;
-}
-
-.nav-link:hover, .nav-item:hover > .nav-link {
-  color: var(--black);
-  background: var(--bg-3);
-}
-
-.nav-link .chevron {
-  width: 14px; height: 14px;
-  transition: transform 0.2s;
-  color: var(--muted);
-}
-
-.nav-item:hover > .nav-link .chevron {
-  transform: rotate(180deg);
-  color: var(--black);
-}
-
-.dropdown {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%) translateY(-4px);
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  box-shadow: var(--shadow-lg);
-  padding: 20px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.15s, transform 0.15s;
-  min-width: 680px;
-  z-index: 9999;
-}
-
-.nav-item:hover .dropdown {
-  opacity: 1;
-  pointer-events: all;
-  transform: translateX(-50%) translateY(0);
-}
-
-.dropdown-small { min-width: 220px; }
-.dropdown-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
-.dropdown-single { display: flex; flex-direction: column; gap: 2px; }
-
-.dd-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 12px 14px;
-  border-radius: 10px;
-  text-decoration: none;
-  transition: background 0.12s;
-}
-.dd-item:hover { background: var(--bg-2); }
-
-.dd-icon {
-  width: 36px; height: 36px;
-  border-radius: 8px;
-  background: var(--red-light);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; font-size: 16px;
-}
-
-.dd-text { display: flex; flex-direction: column; gap: 2px; }
-.dd-title { font-size: 14px; font-weight: 600; color: var(--black); line-height: 1.3; }
-.dd-desc { font-size: 12px; color: var(--muted); line-height: 1.4; }
-
-.dropdown-divider { height: 1px; background: var(--border); margin: 8px 0; }
-
-.dropdown-footer {
-  padding: 10px 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.dropdown-footer-link {
-  font-size: 13px;
-  color: var(--red);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-left: auto;
-  flex-shrink: 0;
-}
-
-.btn-ghost-sm {
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--mid);
-  text-decoration: none;
-  border-radius: 8px;
-  transition: color 0.15s, background 0.15s;
-}
-.btn-ghost-sm:hover { color: var(--black); background: var(--bg-3); }
-
-.btn-primary {
-  background: var(--red);
-  color: #fff;
-  padding: 9px 20px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
-  white-space: nowrap;
-}
-.btn-primary:hover {
-  background: var(--red-dark);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(232,25,44,0.22);
-}
-
-/* ───── HERO ───── */
-.hero {
-  padding: 130px 40px 80px;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  background: #fff;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Subtle dot grid background */
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px);
-  background-size: 28px 28px;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
-  pointer-events: none;
-}
-
-.hero-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  width: 100%;
-  text-align: center;
-  position: relative;
-  z-index: 2;
-}
-
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--bg-3);
-  border: 1px solid var(--border);
-  border-radius: 100px;
-  padding: 5px 14px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--mid);
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  margin-bottom: 28px;
-}
-
-.hero-badge-dot {
-  width: 6px; height: 6px;
-  background: var(--red);
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%,100% { opacity:1; transform:scale(1); }
-  50% { opacity:0.4; transform:scale(0.7); }
-}
-
-.hero-headline {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(40px, 6vw, 80px);
-  font-weight: 800;
-  letter-spacing: -3px;
-  line-height: 1.0;
-  color: var(--black);
-  margin-bottom: 6px;
-  min-height: 180px;
-}
-
-.hero-headline em {
-  font-style: normal;
-  color: var(--red);
-}
-
-.hero-sub {
-  font-size: 18px;
-  line-height: 1.7;
-  color: var(--muted);
-  max-width: 560px;
-  margin: 20px auto 36px;
-}
-
-.hero-ctas {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 56px;
-}
-
-.btn-primary-lg {
-  background: var(--red);
-  color: #fff;
-  padding: 14px 28px;
-  border-radius: 10px;
-  font-size: 15px;
-  font-weight: 600;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.2s;
-  border: none;
-  cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-}
-.btn-primary-lg:hover {
-  background: var(--red-dark);
-  transform: translateY(-1px);
-  box-shadow: 0 8px 28px rgba(232,25,44,0.22);
-}
-
-.btn-outline-lg {
-  padding: 14px 28px;
-  border-radius: 10px;
-  font-size: 15px;
-  font-weight: 600;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: 1.5px solid var(--border-strong);
-  color: var(--dark);
-  background: #fff;
-  transition: all 0.2s;
-}
-.btn-outline-lg:hover {
-  border-color: var(--red);
-  color: var(--red);
-  box-shadow: var(--shadow);
-}
-
-.hero-stats {
-  display: flex;
-  gap: 0;
-  justify-content: center;
-  flex-wrap: wrap;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  overflow: hidden;
-  max-width: 680px;
-  margin: 0 auto;
-  background: #fff;
-}
-
-.hero-stat {
-  flex: 1;
-  min-width: 140px;
-  padding: 20px 24px;
-  text-align: center;
-  border-right: 1px solid var(--border);
-  position: relative;
-}
-
-.hero-stat:last-child { border-right: none; }
-
-.hero-stat-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--black);
-  letter-spacing: -0.5px;
-}
-
-.hero-stat-label {
-  font-size: 11px;
-  color: var(--muted);
-  font-weight: 500;
-  margin-top: 2px;
-}
-
-/* Hero visual dashboard */
-.hero-visual {
-  margin: 60px auto 0;
-  max-width: 900px;
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.04);
-  background: #fff;
-}
-
-.hero-dashboard-bar {
-  background: var(--bg-3);
-  border-bottom: 1px solid var(--border);
-  padding: 10px 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.dash-dot {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-}
-
-.dash-dot-r { background: #ff5f57; }
-.dash-dot-y { background: #ffbd2e; }
-.dash-dot-g { background: #28c840; }
-
-.dash-title {
-  margin-left: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--muted);
-  letter-spacing: 0.3px;
-}
-
-.hero-dashboard-content {
-  display: grid;
-  grid-template-columns: 180px 1fr;
-  height: 320px;
-}
-
-.dash-sidebar {
-  border-right: 1px solid var(--border);
-  padding: 16px 12px;
-  background: var(--bg-2);
-}
-
-.dash-sidebar-label {
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--muted);
-  margin-bottom: 12px;
-  padding-left: 4px;
-}
-
-.dash-stock {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 7px 8px;
-  border-radius: 7px;
-  margin-bottom: 2px;
-  cursor: pointer;
-  transition: background 0.12s;
-}
-.dash-stock:hover { background: var(--border); }
-.dash-stock.active { background: var(--black); }
-.dash-stock.active .ds-name { color: #fff; }
-.dash-stock.active .ds-val { color: rgba(255,255,255,0.8); }
-
-.ds-name { font-size: 12px; font-weight: 600; color: var(--dark); }
-.ds-val { font-size: 11px; font-weight: 600; }
-.ds-up { color: #10b981; }
-.ds-dn { color: #ef4444; }
-
-.dash-main { padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; }
-
-.dash-main-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.dash-ticker { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--black); }
-.dash-price { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: var(--black); letter-spacing: -1px; }
-.dash-change { font-size: 13px; font-weight: 600; color: #10b981; }
-
-.dash-action-btns { display: flex; gap: 8px; }
-
-.dash-btn {
-  padding: 8px 20px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  border: none;
-  font-family: 'DM Sans', sans-serif;
-}
-.dash-btn-buy { background: #10b981; color: #fff; }
-.dash-btn-sell { background: #ef4444; color: #fff; }
-
-.dash-chart-area {
-  flex: 1;
-  border-radius: 10px;
-  overflow: hidden;
-  background: var(--bg-2);
-  border: 1px solid var(--border);
-  position: relative;
-}
-
-.dash-footer {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 12px;
-}
-
-.dash-metric {
-  padding: 10px 14px;
-  background: var(--bg-2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-}
-
-.dm-label { font-size: 10px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-.dm-val { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--black); }
-
-/* ───── TRUST STRIP ───── */
-.trust-strip {
-  padding: 20px 40px;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  background: var(--bg-2);
-  overflow: hidden;
-}
-
-.trust-label {
-  text-align: center;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--muted);
-  margin-bottom: 16px;
-}
-
-.trust-marquee-wrap { overflow: hidden; }
-
-.trust-marquee {
-  display: flex;
-  gap: 56px;
-  width: max-content;
-  animation: marquee 28s linear infinite;
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-.trust-logo-item {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 14px;
-  color: #aaaaaa;
-  white-space: nowrap;
-  letter-spacing: -0.3px;
-  transition: color 0.2s;
-}
-.trust-logo-item:hover { color: var(--mid); }
-
-/* ───── STATS BAND ───── */
-.stats-band {
-  padding: 64px 40px;
-  background: #fff;
-  border-bottom: 1px solid var(--border);
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  max-width: 1280px;
-  margin: 0 auto;
-}
-
-.stat-item {
-  background: #fff;
-  padding: 36px 28px;
-  text-align: center;
-  position: relative;
-}
-
-.stat-item::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 20px; right: 20px;
-  height: 2px;
-  background: var(--red);
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-.stat-item:hover::before { opacity: 1; }
-
-.stat-number {
-  font-family: 'Syne', sans-serif;
-  font-size: 36px;
-  font-weight: 800;
-  color: var(--black);
-  letter-spacing: -1.5px;
-  margin-bottom: 6px;
-}
-.stat-number span { color: var(--red); }
-.stat-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
-
-/* ───── SHARED SECTION ───── */
-section { padding: 100px 40px; }
-.section-inner { max-width: 1280px; margin: 0 auto; }
-
-.section-label {
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--red);
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.section-label::before {
-  content: '';
-  width: 20px; height: 2px;
-  background: var(--red);
-  border-radius: 1px;
-}
-
-.section-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(28px, 3vw, 44px);
-  font-weight: 800;
-  letter-spacing: -1.5px;
-  line-height: 1.1;
-  color: var(--black);
-  max-width: 640px;
-  margin-bottom: 16px;
-}
-
-.section-sub {
-  font-size: 17px;
-  line-height: 1.7;
-  color: var(--muted);
-  max-width: 560px;
-  margin-bottom: 60px;
-}
-
-.section-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 56px;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-/* ───── POSITIONING STRIP ───── */
-.positioning {
-  background: var(--bg-2);
-  padding: 80px 40px;
-  border-bottom: 1px solid var(--border);
-}
-
-.positioning-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-
-.pos-content {}
-
-.pos-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(26px, 3vw, 40px);
-  font-weight: 800;
-  letter-spacing: -1.2px;
-  line-height: 1.1;
-  color: var(--black);
-  margin-bottom: 16px;
-}
-
-.pos-desc {
-  font-size: 16px;
-  line-height: 1.7;
-  color: var(--muted);
-  margin-bottom: 28px;
-}
-
-.pos-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-
-.pos-chip {
-  padding: 6px 14px;
-  border-radius: 100px;
-  border: 1px solid var(--border);
-  background: #fff;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--mid);
-}
-
-.pos-visual {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.pos-card {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px 18px;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-.pos-card:hover {
-  border-color: rgba(232,25,44,0.2);
-  box-shadow: var(--shadow);
-}
-
-.pos-card-icon { font-size: 22px; margin-bottom: 10px; }
-.pos-card-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--black); margin-bottom: 4px; }
-.pos-card-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
-
-/* ───── PRODUCTS ───── */
-.products { background: #fff; }
-
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-
-.product-card {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 28px 24px;
-  position: relative;
-  overflow: hidden;
-  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-  cursor: pointer;
-}
-.product-card:hover {
-  border-color: rgba(232,25,44,0.2);
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
-}
-.product-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--red), transparent);
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-.product-card:hover::before { opacity: 1; }
-
-.product-mockup {
-  width: 100%;
-  height: 130px;
-  margin-bottom: 18px;
-  border-radius: 10px;
-  overflow: hidden;
-  background: var(--bg-3);
-  border: 1px solid var(--border);
-}
-.product-mockup canvas { width: 100%; height: 100%; display: block; }
-
-.product-tag {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--red);
-  margin-bottom: 6px;
-}
-.product-name {
-  font-family: 'Syne', sans-serif;
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--black);
-  margin-bottom: 8px;
-  letter-spacing: -0.3px;
-}
-.product-desc {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.6;
-  margin-bottom: 16px;
-}
-
-.chip-row { display: flex; flex-wrap: wrap; gap: 6px; }
-.chip {
-  font-size: 11px;
-  padding: 4px 10px;
-  border-radius: 100px;
-  background: var(--bg-3);
-  border: 1px solid var(--border);
-  color: var(--mid);
-  font-weight: 500;
-}
-
-.product-arrow {
-  position: absolute;
-  top: 20px; right: 20px;
-  color: var(--muted);
-  opacity: 0;
-  transition: all 0.2s;
-  font-size: 18px;
-}
-.product-card:hover .product-arrow { opacity: 1; transform: translate(2px,-2px); }
-
-/* ───── SOLUTIONS ───── */
-.solutions { background: var(--bg-2); }
-
-.solutions-layout {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 60px;
-  align-items: start;
-}
-
-.tab-btn {
-  width: 100%;
-  padding: 14px 18px;
-  border-radius: 10px;
-  border: 1px solid transparent;
-  background: transparent;
-  cursor: pointer;
-  text-align: left;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--muted);
-  transition: all 0.15s;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 4px;
-}
-.tab-btn:hover:not(.active) { background: var(--border); color: var(--dark); }
-.tab-btn.active { background: var(--black); color: #fff; border-color: transparent; }
-.tab-btn .t-icon { font-size: 16px; }
-
-.solutions-panel { display: none; animation: fadeUp 0.3s ease; }
-.solutions-panel.active { display: block; }
-
-@keyframes fadeUp {
-  from { opacity:0; transform:translateY(8px); }
-  to { opacity:1; transform:translateY(0); }
-}
-
-.panel-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: -0.6px;
-  color: var(--black);
-  margin-bottom: 12px;
-}
-.panel-desc {
-  font-size: 15px;
-  color: var(--muted);
-  line-height: 1.7;
-  margin-bottom: 28px;
-}
-.panel-features {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 28px;
-}
-.panel-feature {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-size: 13.5px;
-  color: var(--dark);
-  line-height: 1.5;
-}
-.panel-feature::before {
-  content: '✓';
-  color: var(--red);
-  font-weight: 700;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-.proof-bar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 18px;
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-}
-.proof-bar-icon {
-  width: 32px; height: 32px;
-  border-radius: 8px;
-  background: var(--black);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 13px;
-  color: #fff;
-  flex-shrink: 0;
-}
-.proof-bar-text {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.5;
-}
-.proof-bar-text strong { color: var(--black); font-weight: 600; }
-
-/* ───── ARCHITECTURE ───── */
-.architecture { background: #fff; }
-
-.arch-visual {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-bottom: 40px;
-}
-
-.arch-side {
-  padding: 32px;
-  border-radius: 14px;
-  border: 1px solid var(--border);
-}
-.arch-side.old { background: rgba(239,68,68,0.03); border-color: rgba(239,68,68,0.15); }
-.arch-side.new { background: rgba(0,0,0,0.02); border-color: rgba(0,0,0,0.12); }
-
-.arch-side-label {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 14px;
-}
-.arch-side.old .arch-side-label { color: #ef4444; }
-.arch-side.new .arch-side-label { color: var(--black); }
-
-.arch-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--black);
-  margin-bottom: 16px;
-}
-
-.arch-items { display: flex; flex-direction: column; gap: 10px; }
-.arch-item { display: flex; align-items: center; gap: 8px; font-size: 13.5px; line-height: 1.4; }
-.arch-item.bad { color: #ef4444; }
-.arch-item.good { color: var(--black); }
-
-.arch-features {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-}
-
-.arch-feature {
-  text-align: center;
-  padding: 28px 20px;
-  background: var(--bg-2);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-.arch-feature:hover {
-  border-color: rgba(0,0,0,0.2);
-  box-shadow: var(--shadow);
-}
-.af-icon { font-size: 28px; margin-bottom: 12px; }
-.af-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--black);
-  margin-bottom: 6px;
-}
-.af-desc { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
-
-/* ───── WHY ───── */
-.why-section { background: var(--bg-2); }
-
-.why-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-top: 40px;
-}
-.why-card {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 28px 24px;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-.why-card:hover { border-color: rgba(0,0,0,0.15); box-shadow: var(--shadow); }
-.why-icon { font-size: 24px; margin-bottom: 14px; display: block; }
-.why-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--black);
-  margin-bottom: 8px;
-}
-.why-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
-
-/* ───── PROOF ───── */
-.proof { background: #fff; }
-
-.proof-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-.proof-card {
-  padding: 32px;
-  background: var(--bg-2);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-}
-.proof-card:hover {
-  border-color: rgba(0,0,0,0.15);
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-3px);
-}
-.proof-tag {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--red);
-  margin-bottom: 10px;
-}
-.proof-client {
-  font-family: 'Syne', sans-serif;
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--black);
-  margin-bottom: 14px;
-  letter-spacing: -0.4px;
-}
-.proof-story {
-  font-size: 13.5px;
-  color: var(--muted);
-  line-height: 1.7;
-  margin-bottom: 20px;
-}
-.proof-metric {
-  padding-top: 18px;
-  border-top: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.proof-metric-number {
-  font-family: 'Syne', sans-serif;
-  font-size: 28px;
-  font-weight: 800;
-  color: var(--black);
-  letter-spacing: -1px;
-}
-.proof-metric-label {
-  font-size: 12px;
-  color: var(--muted);
-  max-width: 110px;
-  text-align: right;
-  line-height: 1.4;
-}
-
-/* ───── TECH ───── */
-.tech { background: var(--bg-2); }
-
-.tech-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  overflow: hidden;
-}
-.tech-item {
-  background: #fff;
-  padding: 28px 16px;
-  text-align: center;
-  transition: background 0.15s;
-}
-.tech-item:hover { background: var(--bg-3); }
-.tech-emoji { font-size: 26px; margin-bottom: 10px; }
-.tech-lang {
-  font-family: 'Syne', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--black);
-  margin-bottom: 3px;
-}
-.tech-role { font-size: 11.5px; color: var(--muted); }
-
-/* ───── DEMO ───── */
-.demo-section {
-  background: var(--black);
-  position: relative;
-  overflow: hidden;
-}
-.demo-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 24px 24px;
-  pointer-events: none;
-}
-
-.demo-inner {
-  max-width: 680px;
-  margin: 0 auto;
-  text-align: center;
-  position: relative;
-  z-index: 1;
-}
-
-.demo-label { color: rgba(255,255,255,0.4) !important; }
-.demo-label::before { background: rgba(255,255,255,0.2) !important; }
-
-.demo-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(30px, 4vw, 50px);
-  font-weight: 800;
-  letter-spacing: -1.5px;
-  color: #fff;
-  margin-bottom: 14px;
-  line-height: 1.1;
-}
-.demo-sub {
-  font-size: 17px;
-  color: rgba(255,255,255,0.5);
-  line-height: 1.7;
-  margin-bottom: 40px;
-}
-
-.demo-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-
-.demo-form input,
-.demo-form select {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 8px;
-  padding: 13px 16px;
-  font-size: 14px;
-  color: #fff;
-  font-family: 'DM Sans', sans-serif;
-  transition: border-color 0.2s;
-  outline: none;
-}
-.demo-form input::placeholder { color: rgba(255,255,255,0.28); }
-.demo-form input:focus, .demo-form select:focus { border-color: rgba(255,255,255,0.3); }
-.demo-form select option { background: #1a1a1a; color: #fff; }
-.full { grid-column: 1/-1; }
-
-.demo-submit {
-  width: 100%;
-  background: #fff;
-  color: var(--black);
-  padding: 15px;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 700;
-  border: none;
-  cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 4px;
-}
-.demo-submit:hover {
-  background: var(--bg-3);
-  transform: translateY(-1px);
-}
-
-.demo-trust {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  margin-top: 20px;
-  font-size: 12px;
-  color: rgba(255,255,255,0.28);
-  flex-wrap: wrap;
-}
-
-/* ───── FOOTER ───── */
-footer {
-  background: var(--black);
-  border-top: 1px solid rgba(255,255,255,0.06);
-  padding: 64px 40px 32px;
-}
-
-.footer-top {
-  display: grid;
-  grid-template-columns: 260px 1fr 1fr 1fr 1fr;
-  gap: 40px;
-  margin-bottom: 48px;
-  max-width: 1280px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.footer-brand p {
-  font-size: 13.5px;
-  color: rgba(255,255,255,0.35);
-  line-height: 1.7;
-  margin: 12px 0 18px;
-}
-
-.footer-brand-name {
-  font-family: 'Syne', sans-serif;
-  font-size: 20px;
-  font-weight: 800;
-  color: #fff;
-  letter-spacing: -0.5px;
-}
-
-.footer-certs { display: flex; gap: 8px; flex-wrap: wrap; }
-.cert {
-  padding: 4px 10px;
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 6px;
-  font-size: 11px;
-  color: rgba(255,255,255,0.4);
-  font-weight: 600;
-}
-
-.footer-col-title {
-  font-family: 'Syne', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: rgba(255,255,255,0.5);
-  margin-bottom: 14px;
-}
-
-.footer-links { list-style: none; display: flex; flex-direction: column; gap: 9px; }
-.footer-links a {
-  font-size: 13.5px;
-  color: rgba(255,255,255,0.35);
-  text-decoration: none;
-  transition: color 0.15s;
-}
-.footer-links a:hover { color: rgba(255,255,255,0.8); }
-
-.footer-bottom {
-  padding-top: 24px;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 12.5px;
-  color: rgba(255,255,255,0.25);
-  max-width: 1280px;
-  margin: 0 auto;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-/* ───── REVEAL ───── */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.reveal.visible { opacity: 1; transform: translateY(0); }
-
-.stagger > * {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-.stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay:0s; }
-.stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay:0.07s; }
-.stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay:0.14s; }
-.stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay:0.21s; }
-.stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay:0.28s; }
-.stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay:0.35s; }
-.stagger.visible > *:nth-child(7) { opacity:1; transform:none; transition-delay:0.42s; }
-
-/* ───── MOBILE ───── */
-@media(max-width:1100px) {
-  .stats-grid { grid-template-columns: repeat(3,1fr); }
-  .products-grid { grid-template-columns: 1fr 1fr; }
-  .footer-top { grid-template-columns: 1fr 1fr; }
-  .tech-grid { grid-template-columns: repeat(4,1fr); }
-  .positioning-inner { grid-template-columns: 1fr; gap: 40px; }
-}
-
-@media(max-width:768px) {
-  nav { padding: 0 20px; }
-  .nav-links, .nav-right { display: none; }
-  section { padding: 64px 20px; }
-  .hero { padding: 90px 20px 60px; }
-  .products-grid, .proof-grid, .arch-visual, .arch-features, .why-grid { grid-template-columns: 1fr; }
-  .solutions-layout { grid-template-columns: 1fr; }
-  .demo-form { grid-template-columns: 1fr; }
-  .stats-grid { grid-template-columns: 1fr 1fr; }
-  .tech-grid { grid-template-columns: repeat(3,1fr); }
-  .panel-features { grid-template-columns: 1fr; }
-  .hero-stats { flex-wrap: wrap; }
-  .hero-stat { min-width: 120px; }
-  .hero-dashboard-content { grid-template-columns: 1fr; height: auto; }
-  .dash-sidebar { display: none; }
+  --shadow: 0 1px 3px rgba(0,0,0,0.07),0 4px 16px rgba(0,0,0,0.04);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.09),0 2px 8px rgba(0,0,0,0.05);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:#fff;color:var(--dark);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:64px;background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 40px;}
+.nav-logo{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--black);letter-spacing:-0.5px;text-decoration:none;margin-right:40px;flex-shrink:0;}
+.nav-links{display:flex;align-items:center;gap:2px;list-style:none;flex:1;}
+.nav-item{position:relative;}
+.nav-link{display:flex;align-items:center;gap:5px;padding:8px 14px;font-size:14px;font-weight:500;color:var(--mid);text-decoration:none;border-radius:8px;cursor:pointer;transition:color .15s,background .15s;white-space:nowrap;border:none;background:none;font-family:'DM Sans',sans-serif;}
+.nav-link:hover,.nav-item:hover>.nav-link{color:var(--black);background:var(--bg-3);}
+.chevron{width:14px;height:14px;transition:transform .2s;color:var(--muted);}
+.nav-item:hover>.nav-link .chevron{transform:rotate(180deg);}
+.dropdown{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(-4px);background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow-lg);padding:20px;opacity:0;pointer-events:none;transition:opacity .15s,transform .15s;min-width:660px;z-index:9999;}
+.nav-item:hover .dropdown{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0);}
+.dropdown-small{min-width:220px;}
+.dropdown-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
+.dropdown-single{display:flex;flex-direction:column;gap:2px;}
+.dd-item{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-radius:10px;text-decoration:none;transition:background .12s;}
+.dd-item:hover{background:var(--bg-2);}
+.dd-icon{width:36px;height:36px;border-radius:8px;background:var(--red-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;}
+.dd-text{display:flex;flex-direction:column;gap:2px;}
+.dd-title{font-size:14px;font-weight:600;color:var(--black);line-height:1.3;}
+.dd-desc{font-size:12px;color:var(--muted);line-height:1.4;}
+.dropdown-divider{height:1px;background:var(--border);margin:8px 0;}
+.dropdown-footer{padding:10px 14px;display:flex;align-items:center;justify-content:space-between;}
+.dropdown-footer-link{font-size:13px;color:var(--red);font-weight:600;text-decoration:none;}
+.nav-right{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0;}
+.btn-ghost-sm{padding:8px 16px;font-size:14px;font-weight:500;color:var(--mid);text-decoration:none;border-radius:8px;transition:color .15s,background .15s;}
+.btn-ghost-sm:hover{color:var(--black);background:var(--bg-3);}
+.btn-red{background:var(--red);color:#fff;padding:9px 20px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:6px;transition:background .15s,transform .15s,box-shadow .15s;white-space:nowrap;}
+.btn-red:hover{background:var(--red-dark);transform:translateY(-1px);box-shadow:0 4px 16px rgba(232,25,44,.22);}
+
+/* ── HERO ── */
+.hero{padding:130px 40px 80px;min-height:100vh;display:flex;align-items:center;background:#fff;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(0,0,0,0.055) 1px,transparent 1px);background-size:28px 28px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 100%);pointer-events:none;}
+.hero-inner{max-width:1100px;margin:0 auto;width:100%;text-align:center;position:relative;z-index:2;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--bg-3);border:1px solid var(--border);border-radius:100px;padding:5px 14px;font-size:12px;font-weight:600;color:var(--mid);letter-spacing:.5px;text-transform:uppercase;margin-bottom:28px;}
+.hero-badge-dot{width:6px;height:6px;background:var(--red);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.hero-headline{font-family:'Syne',sans-serif;font-size:clamp(38px,5.5vw,74px);font-weight:800;letter-spacing:-3px;line-height:1.0;color:var(--black);min-height:165px;}
+.hero-headline em{font-style:normal;color:var(--red);}
+.hero-sub{font-size:18px;line-height:1.7;color:var(--muted);max-width:560px;margin:20px auto 36px;}
+.hero-ctas{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:48px;}
+.btn-red-lg{background:var(--red);color:#fff;padding:14px 28px;border-radius:10px;font-size:15px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .2s;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.btn-red-lg:hover{background:var(--red-dark);transform:translateY(-1px);box-shadow:0 8px 28px rgba(232,25,44,.22);}
+.btn-outline-lg{padding:14px 28px;border-radius:10px;font-size:15px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--border-strong);color:var(--dark);background:#fff;transition:all .2s;}
+.btn-outline-lg:hover{border-color:var(--red);color:var(--red);}
+.hero-stats{display:flex;justify-content:center;border:1px solid var(--border);border-radius:14px;overflow:hidden;max-width:600px;margin:0 auto 60px;background:#fff;}
+.hero-stat{flex:1;padding:18px 20px;text-align:center;border-right:1px solid var(--border);}
+.hero-stat:last-child{border-right:none;}
+.hero-stat-num{font-family:'Syne',sans-serif;font-size:21px;font-weight:800;color:var(--black);letter-spacing:-.5px;}
+.hero-stat-lbl{font-size:11px;color:var(--muted);font-weight:500;margin-top:2px;}
+/* dashboard */
+.hero-visual{margin:0 auto;max-width:860px;border-radius:16px;border:1px solid var(--border);overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.04);background:#fff;}
+.dash-bar{background:var(--bg-3);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:6px;}
+.dot{width:10px;height:10px;border-radius:50%;}
+.dot-r{background:#ff5f57;}.dot-y{background:#ffbd2e;}.dot-g{background:#28c840;}
+.dash-bar-title{margin-left:8px;font-size:12px;font-weight:600;color:var(--muted);}
+.dash-body{display:grid;grid-template-columns:170px 1fr;height:300px;}
+.dash-side{border-right:1px solid var(--border);padding:12px 10px;background:var(--bg-2);}
+.dash-side-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:10px;padding-left:4px;}
+.dash-stock{display:flex;justify-content:space-between;padding:6px 8px;border-radius:6px;margin-bottom:2px;cursor:pointer;transition:background .12s;}
+.dash-stock:hover{background:var(--border);}
+.dash-stock.on{background:var(--black);}
+.dash-stock.on .sn,.dash-stock.on .sv{color:#fff !important;}
+.sn{font-size:12px;font-weight:600;color:var(--dark);}
+.sv{font-size:11px;font-weight:600;}
+.up{color:#10b981;}.dn{color:#ef4444;}
+.dash-main{padding:16px 20px;display:flex;flex-direction:column;gap:12px;}
+.dash-top{display:flex;justify-content:space-between;align-items:flex-start;}
+.dticker{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--black);}
+.dprice{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--black);letter-spacing:-1px;}
+.dchange{font-size:12px;font-weight:600;color:#10b981;}
+.dbtns{display:flex;gap:8px;}
+.dbtn{padding:7px 16px;border-radius:7px;font-size:13px;font-weight:700;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.dbtn-b{background:#10b981;color:#fff;}.dbtn-s{background:#ef4444;color:#fff;}
+.dash-chart{flex:1;border-radius:8px;overflow:hidden;background:var(--bg-2);border:1px solid var(--border);}
+.dash-foot{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.dm{padding:8px 12px;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;}
+.dm-l{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;}
+.dm-v{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--black);}
+
+/* ── TRUST ── */
+.trust-strip{padding:18px 40px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg-2);overflow:hidden;}
+.trust-lbl{text-align:center;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:14px;}
+.marquee-wrap{overflow:hidden;}
+.marquee{display:flex;gap:56px;width:max-content;animation:mq 28s linear infinite;}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.mq-item{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:#aaa;white-space:nowrap;letter-spacing:-.3px;transition:color .2s;}
+.mq-item:hover{color:var(--mid);}
+
+/* ── STATS ── */
+.stats-band{padding:64px 40px;background:#fff;border-bottom:1px solid var(--border);}
+.stats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;max-width:1280px;margin:0 auto;}
+.stat-item{background:#fff;padding:34px 24px;text-align:center;position:relative;}
+.stat-item::before{content:'';position:absolute;top:0;left:20px;right:20px;height:2px;background:var(--red);opacity:0;transition:opacity .2s;}
+.stat-item:hover::before{opacity:1;}
+.stat-num{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--black);letter-spacing:-1.5px;margin-bottom:6px;}
+.stat-num span{color:var(--red);}
+.stat-lbl{font-size:13px;color:var(--muted);line-height:1.5;}
+
+/* ── SHARED ── */
+section{padding:100px 40px;}
+.section-inner{max-width:1280px;margin:0 auto;}
+.lbl{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--red);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.lbl::before{content:'';width:20px;height:2px;background:var(--red);border-radius:1px;}
+.lbl.w{color:rgba(232,25,44,.8);}
+.lbl.w::before{background:rgba(232,25,44,.6);}
+.h2{font-family:'Syne',sans-serif;font-size:clamp(26px,3vw,42px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;color:var(--black);max-width:640px;margin-bottom:16px;}
+.h2.w{color:#fff;}
+.sub{font-size:17px;line-height:1.7;color:var(--muted);max-width:560px;margin-bottom:56px;}
+.sub.w{color:rgba(255,255,255,.5);}
+.sec-hdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:52px;flex-wrap:wrap;gap:20px;}
+
+/* ── PROBLEM BAND ── */
+.problem{background:var(--black);padding:100px 40px;}
+.problem-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.problem-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.pc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:22px 20px;}
+.pc-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:8px;}
+.pc-desc{font-size:13px;color:rgba(255,255,255,.45);line-height:1.6;margin-bottom:12px;}
+.pc-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.pc-tag{font-size:11px;padding:3px 9px;border-radius:100px;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.3);font-weight:600;}
+
+/* ── PRODUCTS ── */
+.products{background:#fff;}
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.prod-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:28px 24px;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .2s;cursor:pointer;}
+.prod-card:hover{border-color:rgba(232,25,44,.2);box-shadow:var(--shadow-lg);transform:translateY(-2px);}
+.prod-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),transparent);opacity:0;transition:opacity .2s;}
+.prod-card:hover::before{opacity:1;}
+.prod-mock{width:100%;height:128px;margin-bottom:18px;border-radius:10px;overflow:hidden;background:var(--bg-3);border:1px solid var(--border);}
+.prod-mock canvas{width:100%;height:100%;display:block;}
+.prod-tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--red);margin-bottom:5px;}
+.prod-name{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--black);margin-bottom:8px;letter-spacing:-.3px;}
+.prod-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;}
+.chip{font-size:11px;padding:4px 10px;border-radius:100px;background:var(--bg-3);border:1px solid var(--border);color:var(--mid);font-weight:500;}
+.arr{position:absolute;top:20px;right:20px;color:var(--muted);opacity:0;transition:all .2s;font-size:18px;}
+.prod-card:hover .arr{opacity:1;transform:translate(2px,-2px);}
+
+/* ── SOLUTIONS ── */
+.solutions{background:var(--bg-2);}
+.sol-layout{display:grid;grid-template-columns:260px 1fr;gap:56px;align-items:start;}
+.tab-btn{width:100%;padding:13px 18px;border-radius:10px;border:1px solid transparent;background:transparent;cursor:pointer;text-align:left;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--muted);transition:all .15s;display:flex;align-items:center;gap:10px;margin-bottom:4px;}
+.tab-btn:hover:not(.active){background:var(--border);color:var(--dark);}
+.tab-btn.active{background:var(--black);color:#fff;}
+.tab-icon{font-size:16px;}
+.sol-panel{display:none;animation:fadeup .3s ease;}
+.sol-panel.active{display:block;}
+@keyframes fadeup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.pan-h{font-family:'Syne',sans-serif;font-size:24px;font-weight:700;letter-spacing:-.6px;color:var(--black);margin-bottom:12px;}
+.pan-d{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:28px;}
+.pan-feats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px;}
+.pf{display:flex;align-items:flex-start;gap:8px;font-size:13.5px;color:var(--dark);line-height:1.5;}
+.pf::before{content:'✓';color:var(--red);font-weight:700;flex-shrink:0;margin-top:1px;}
+.proof-bar{display:flex;align-items:center;gap:12px;padding:14px 18px;background:#fff;border:1px solid var(--border);border-radius:10px;}
+.pb-ico{width:32px;height:32px;border-radius:8px;background:var(--black);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:13px;color:#fff;flex-shrink:0;}
+.pb-txt{font-size:13px;color:var(--muted);line-height:1.5;}
+.pb-txt strong{color:var(--black);font-weight:600;}
+
+/* ── ARCHITECTURE ── */
+.architecture{background:#fff;}
+.arch-vis{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:40px;}
+.arch-side{padding:30px;border-radius:14px;border:1px solid var(--border);}
+.arch-side.old{background:rgba(239,68,68,.03);border-color:rgba(239,68,68,.15);}
+.arch-side.new{background:rgba(0,0,0,.02);border-color:rgba(0,0,0,.12);}
+.arch-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+.arch-side.old .arch-lbl{color:#ef4444;}
+.arch-side.new .arch-lbl{color:var(--black);}
+.arch-h{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--black);margin-bottom:14px;}
+.arch-items{display:flex;flex-direction:column;gap:10px;}
+.ai{display:flex;align-items:flex-start;gap:8px;font-size:13.5px;line-height:1.5;}
+.ai.bad{color:#ef4444;}.ai.good{color:var(--dark);}
+.arch-feats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.af{padding:26px 20px;background:var(--bg-2);border:1px solid var(--border);border-radius:14px;transition:border-color .2s,box-shadow .2s;}
+.af:hover{border-color:rgba(0,0,0,.15);box-shadow:var(--shadow);}
+.af-ico{font-size:26px;margin-bottom:12px;}
+.af-h{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--black);margin-bottom:6px;}
+.af-d{font-size:13px;color:var(--muted);line-height:1.5;}
+
+/* ── WHY ── */
+.why{background:var(--bg-2);}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;}
+.wc{background:#fff;border:1px solid var(--border);border-radius:14px;padding:28px 24px;transition:border-color .2s,box-shadow .2s;}
+.wc:hover{border-color:rgba(0,0,0,.15);box-shadow:var(--shadow);}
+.wc-ico{font-size:24px;margin-bottom:14px;display:block;}
+.wc-h{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--black);margin-bottom:8px;}
+.wc-d{font-size:13px;color:var(--muted);line-height:1.6;}
+
+/* ── CLIENT OUTCOMES ── */
+.outcomes{background:#fff;}
+.outcome-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.oc{padding:30px;background:var(--bg-2);border:1px solid var(--border);border-radius:16px;transition:border-color .2s,box-shadow .2s,transform .2s;}
+.oc:hover{border-color:rgba(0,0,0,.15);box-shadow:var(--shadow-lg);transform:translateY(-3px);}
+.oc-tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--red);margin-bottom:10px;}
+.oc-title{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:var(--black);margin-bottom:14px;letter-spacing:-.4px;}
+.oc-story{font-size:13.5px;color:var(--muted);line-height:1.7;margin-bottom:20px;}
+.oc-metric{padding-top:18px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.oc-num{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--black);letter-spacing:-1px;}
+.oc-lbl{font-size:12px;color:var(--muted);max-width:110px;text-align:right;line-height:1.4;}
+
+/* ── CLIENT LOGOS ── */
+.client-logos{background:var(--bg-2);padding:60px 40px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.cl-lbl{text-align:center;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:28px;}
+.cl-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden;max-width:860px;margin:0 auto;}
+.cl-box{background:#fff;padding:22px 14px;text-align:center;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:#bbb;transition:color .2s,background .2s;}
+.cl-box:hover{color:var(--mid);background:var(--bg-3);}
+
+/* ── TESTIMONIAL ── */
+.testimonial{background:var(--black);padding:80px 40px;}
+.test-inner{max-width:700px;margin:0 auto;text-align:center;}
+.test-mark{font-family:'Syne',sans-serif;font-size:72px;font-weight:800;color:var(--red);line-height:.6;margin-bottom:24px;display:block;opacity:.5;}
+.test-quote{font-family:'Syne',sans-serif;font-size:clamp(18px,2.2vw,26px);font-weight:600;color:#fff;line-height:1.55;letter-spacing:-.4px;margin-bottom:28px;}
+.test-author{font-size:13px;font-weight:600;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;}
+
+/* ── TECH ── */
+.tech{background:var(--bg-2);}
+.tech-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.tech-item{background:#fff;padding:26px 10px;text-align:center;transition:background .15s;}
+.tech-item:hover{background:var(--bg-3);}
+.tech-emoji{font-size:24px;margin-bottom:10px;}
+.tech-lang{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--black);margin-bottom:3px;}
+.tech-role{font-size:11px;color:var(--muted);line-height:1.4;}
+
+/* ── CERTS ── */
+.certs{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:22px 40px;}
+.certs-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;}
+.cert-item{display:flex;align-items:center;gap:7px;padding:0 24px;border-right:1px solid var(--border);font-size:13px;font-weight:600;color:var(--mid);white-space:nowrap;line-height:2.5;}
+.cert-item:last-child{border-right:none;}
+
+/* ── DEMO ── */
+.demo{background:var(--black);position:relative;overflow:hidden;}
+.demo::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.025) 1px,transparent 1px);background-size:24px 24px;pointer-events:none;}
+.demo-inner{max-width:660px;margin:0 auto;text-align:center;position:relative;z-index:1;}
+.demo-h{font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,48px);font-weight:800;letter-spacing:-1.5px;color:#fff;margin-bottom:14px;line-height:1.1;}
+.demo-sub{font-size:17px;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:36px;}
+.demo-form{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.demo-form input,.demo-form select{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:13px 16px;font-size:14px;color:#fff;font-family:'DM Sans',sans-serif;transition:border-color .2s;outline:none;}
+.demo-form input::placeholder{color:rgba(255,255,255,.28);}
+.demo-form input:focus,.demo-form select:focus{border-color:rgba(255,255,255,.3);}
+.demo-form select option{background:#1a1a1a;color:#fff;}
+.full{grid-column:1/-1;}
+.demo-submit{width:100%;background:#fff;color:var(--black);padding:14px;border-radius:8px;font-size:15px;font-weight:700;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px;}
+.demo-submit:hover{background:var(--bg-3);transform:translateY(-1px);}
+.demo-trust{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:18px;font-size:12px;color:rgba(255,255,255,.28);flex-wrap:wrap;}
+
+/* ── FOOTER ── */
+footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);padding:60px 40px 28px;}
+.foot-top{display:grid;grid-template-columns:260px 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:44px;max-width:1280px;margin-left:auto;margin-right:auto;}
+.foot-brand-name{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff;letter-spacing:-.5px;}
+.foot-tagline{font-size:13px;color:rgba(255,255,255,.35);line-height:1.7;margin:10px 0 14px;}
+.foot-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.fb{padding:3px 9px;border:1px solid rgba(255,255,255,.12);border-radius:6px;font-size:11px;color:rgba(255,255,255,.35);font-weight:600;}
+.foot-contact{font-size:12px;color:rgba(255,255,255,.25);line-height:1.8;}
+.foot-col-h{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.5);margin-bottom:14px;}
+.foot-links{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.foot-links a{font-size:13.5px;color:rgba(255,255,255,.35);text-decoration:none;transition:color .15s;}
+.foot-links a:hover{color:rgba(255,255,255,.8);}
+.foot-bottom{padding-top:22px;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;max-width:1280px;margin:0 auto;flex-wrap:wrap;gap:10px;}
+.foot-copy{font-size:12px;color:rgba(255,255,255,.25);}
+.foot-links-row{display:flex;align-items:center;gap:20px;}
+.foot-links-row a{font-size:12px;color:rgba(255,255,255,.25);text-decoration:none;transition:color .15s;}
+.foot-links-row a:hover{color:rgba(255,255,255,.5);}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.stagger>*{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;}
+.stagger.visible>*:nth-child(1){opacity:1;transform:none;transition-delay:0s}
+.stagger.visible>*:nth-child(2){opacity:1;transform:none;transition-delay:.07s}
+.stagger.visible>*:nth-child(3){opacity:1;transform:none;transition-delay:.14s}
+.stagger.visible>*:nth-child(4){opacity:1;transform:none;transition-delay:.21s}
+.stagger.visible>*:nth-child(5){opacity:1;transform:none;transition-delay:.28s}
+.stagger.visible>*:nth-child(6){opacity:1;transform:none;transition-delay:.35s}
+.stagger.visible>*:nth-child(7){opacity:1;transform:none;transition-delay:.42s}
+
+/* ── MOBILE ── */
+@media(max-width:1100px){
+  .stats-grid{grid-template-columns:repeat(3,1fr);}
+  .prod-grid{grid-template-columns:1fr 1fr;}
+  .foot-top{grid-template-columns:1fr 1fr;}
+  .tech-grid{grid-template-columns:repeat(4,1fr);}
+  .problem-inner{grid-template-columns:1fr;gap:40px;}
+}
+@media(max-width:768px){
+  nav{padding:0 20px;}
+  .nav-links,.nav-right{display:none;}
+  section{padding:64px 20px;}
+  .hero{padding:88px 20px 56px;}
+  .prod-grid,.outcome-grid,.arch-vis,.why-grid{grid-template-columns:1fr;}
+  .arch-feats{grid-template-columns:1fr 1fr;}
+  .sol-layout{grid-template-columns:1fr;}
+  .demo-form{grid-template-columns:1fr;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .tech-grid{grid-template-columns:repeat(3,1fr);}
+  .pan-feats{grid-template-columns:1fr;}
+  .cl-grid{grid-template-columns:repeat(3,1fr);}
+  .problem-cards{grid-template-columns:1fr;}
+  .dash-body{grid-template-columns:1fr;height:auto;}
+  .dash-side{display:none;}
+  .certs-inner{gap:0;}
+  .cert-item{border-right:none;padding:6px 14px;}
 }
 </style>
 </head>
 <body>
 
-<!-- ─── NAV ─── -->
+<!-- ── NAV ── -->
 <nav>
-  <a class="nav-logo" href="#">
-    <span class="nav-logo-text">Trade<span>lab</span></span>
-  </a>
-
+  <a class="nav-logo" href="#">Tradelab</a>
   <ul class="nav-links">
     <li class="nav-item">
-      <button class="nav-link">Platform
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-      </button>
+      <button class="nav-link">Platform<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
       <div class="dropdown">
         <div class="dropdown-grid">
-          <a class="dd-item" href="#products">
-            <div class="dd-icon">🔄</div>
-            <div class="dd-text"><div class="dd-title">OMS / RMS Core</div><div class="dd-desc">Order & risk management, sub-20ms execution</div></div>
-          </a>
-          <a class="dd-item" href="#products">
-            <div class="dd-icon">🛡️</div>
-            <div class="dd-text"><div class="dd-title">Primus Middleware</div><div class="dd-desc">API orchestration connecting all your systems</div></div>
-          </a>
-          <a class="dd-item" href="#products">
-            <div class="dd-icon">📊</div>
-            <div class="dd-text"><div class="dd-title">Octopus Feed Engine</div><div class="dd-desc">C++ market data distribution at microsecond speed</div></div>
-          </a>
-          <a class="dd-item" href="#products">
-            <div class="dd-icon">📱</div>
-            <div class="dd-text"><div class="dd-title">Trading Applications</div><div class="dd-desc">White-label web, mobile & dealer terminals</div></div>
-          </a>
-          <a class="dd-item" href="#products">
-            <div class="dd-icon">⚡</div>
-            <div class="dd-text"><div class="dd-title">Optre Matching Engine</div><div class="dd-desc">Exchange-grade, &lt;20μs execution latency</div></div>
-          </a>
-          <a class="dd-item" href="#products">
-            <div class="dd-icon">🔑</div>
-            <div class="dd-text"><div class="dd-title">Stride KYC</div><div class="dd-desc">Digital onboarding in under 3 minutes</div></div>
-          </a>
+          <a class="dd-item" href="#products"><div class="dd-icon">🔄</div><div class="dd-text"><div class="dd-title">Order & Risk Management</div><div class="dd-desc">OMS/RMS, sub-20ms execution, real-time risk</div></div></a>
+          <a class="dd-item" href="#products"><div class="dd-icon">🔑</div><div class="dd-text"><div class="dd-title">KYC & Onboarding</div><div class="dd-desc">Digital onboarding in under 2 minutes</div></div></a>
+          <a class="dd-item" href="#products"><div class="dd-icon">📱</div><div class="dd-text"><div class="dd-title">Trading Platform</div><div class="dd-desc">White-label web, mobile & dealer terminals</div></div></a>
+          <a class="dd-item" href="#products"><div class="dd-icon">⚡</div><div class="dd-text"><div class="dd-title">Exchange Infrastructure</div><div class="dd-desc">Matching engine, &lt;20μs latency, 1M orders/sec</div></div></a>
+          <a class="dd-item" href="#products"><div class="dd-icon">📊</div><div class="dd-text"><div class="dd-title">Market Data</div><div class="dd-desc">C++ feed engine, microsecond data delivery</div></div></a>
         </div>
         <div class="dropdown-divider"></div>
         <div class="dropdown-footer">
@@ -1382,177 +352,99 @@ footer {
         </div>
       </div>
     </li>
-
     <li class="nav-item">
-      <button class="nav-link">Solutions
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-      </button>
+      <button class="nav-link">Solutions<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
       <div class="dropdown">
         <div class="dropdown-grid">
-          <a class="dd-item" href="#solutions">
-            <div class="dd-icon">📈</div>
-            <div class="dd-text"><div class="dd-title">For Brokers</div><div class="dd-desc">Unified OMS, RMS & white-label apps for retail brokers</div></div>
-          </a>
-          <a class="dd-item" href="#solutions">
-            <div class="dd-icon">🏦</div>
-            <div class="dd-text"><div class="dd-title">For Banks</div><div class="dd-desc">Bank-grade compliance with fintech UX</div></div>
-          </a>
-          <a class="dd-item" href="#solutions">
-            <div class="dd-icon">⚡</div>
-            <div class="dd-text"><div class="dd-title">For Exchanges</div><div class="dd-desc">End-to-end exchange infrastructure at scale</div></div>
-          </a>
-          <a class="dd-item" href="#solutions">
-            <div class="dd-icon">🤖</div>
-            <div class="dd-text"><div class="dd-title">Algo & HFT</div><div class="dd-desc">Strategy-agnostic algo trading without IP exposure</div></div>
-          </a>
+          <a class="dd-item" href="#solutions"><div class="dd-icon">📈</div><div class="dd-text"><div class="dd-title">For Brokers</div><div class="dd-desc">Unified OMS, RMS & white-label apps</div></div></a>
+          <a class="dd-item" href="#solutions"><div class="dd-icon">🏦</div><div class="dd-text"><div class="dd-title">For Banks</div><div class="dd-desc">Bank-grade compliance with fintech UX</div></div></a>
+          <a class="dd-item" href="#solutions"><div class="dd-icon">⚡</div><div class="dd-text"><div class="dd-title">For Exchanges</div><div class="dd-desc">End-to-end exchange infrastructure at scale</div></div></a>
+          <a class="dd-item" href="#solutions"><div class="dd-icon">🤖</div><div class="dd-text"><div class="dd-title">Algo & HFT</div><div class="dd-desc">Strategy-agnostic trading without IP exposure</div></div></a>
         </div>
       </div>
     </li>
-
     <li class="nav-item">
-      <button class="nav-link">Why Tradelab
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-      </button>
+      <button class="nav-link">Why Tradelab<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
       <div class="dropdown dropdown-small">
         <div class="dropdown-single">
-          <a class="dd-item" href="#architecture">
-            <div class="dd-icon">🏗️</div>
-            <div class="dd-text"><div class="dd-title">Architecture</div><div class="dd-desc">Stateless, horizontally scalable, fault-isolated</div></div>
-          </a>
-          <a class="dd-item" href="#clients">
-            <div class="dd-icon">✅</div>
-            <div class="dd-text"><div class="dd-title">Client Outcomes</div><div class="dd-desc">Real results from live deployments</div></div>
-          </a>
-          <a class="dd-item" href="#">
-            <div class="dd-icon">🛡️</div>
-            <div class="dd-text"><div class="dd-title">Security & Compliance</div><div class="dd-desc">ISO 9001 / 27001 certified, SEBI aligned</div></div>
-          </a>
+          <a class="dd-item" href="#architecture"><div class="dd-icon">🏗️</div><div class="dd-text"><div class="dd-title">Architecture</div><div class="dd-desc">Stateless, horizontally scalable, fault-isolated</div></div></a>
+          <a class="dd-item" href="#outcomes"><div class="dd-icon">✅</div><div class="dd-text"><div class="dd-title">Client Outcomes</div><div class="dd-desc">Real results from live deployments</div></div></a>
+          <a class="dd-item" href="#"><div class="dd-icon">🛡️</div><div class="dd-text"><div class="dd-title">Security & Compliance</div><div class="dd-desc">ISO 9001 / 27001 certified, SEBI aligned</div></div></a>
         </div>
       </div>
     </li>
-
     <li class="nav-item">
-      <button class="nav-link">Resources
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-      </button>
+      <button class="nav-link">Resources<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
       <div class="dropdown dropdown-small">
         <div class="dropdown-single">
           <a class="dd-item" href="#"><div class="dd-icon">📝</div><div class="dd-text"><div class="dd-title">Blog & Insights</div><div class="dd-desc">Trading infrastructure thought leadership</div></div></a>
           <a class="dd-item" href="#"><div class="dd-icon">📄</div><div class="dd-text"><div class="dd-title">Whitepapers</div><div class="dd-desc">Technical deep-dives and architecture guides</div></div></a>
           <a class="dd-item" href="#"><div class="dd-icon">📖</div><div class="dd-text"><div class="dd-title">API Reference</div><div class="dd-desc">REST, WebSocket & FIX protocol documentation</div></div></a>
+          <a class="dd-item" href="#"><div class="dd-icon">🎤</div><div class="dd-text"><div class="dd-title">Events & Webinars</div><div class="dd-desc">Live sessions with Tradelab engineers</div></div></a>
         </div>
       </div>
     </li>
-
     <li class="nav-item">
-      <button class="nav-link">Company
-        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-      </button>
+      <button class="nav-link">Company<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
       <div class="dropdown dropdown-small">
         <div class="dropdown-single">
           <a class="dd-item" href="#"><div class="dd-icon">🏢</div><div class="dd-text"><div class="dd-title">About Tradelab</div><div class="dd-desc">Built in India, engineered for scale since 2012</div></div></a>
           <a class="dd-item" href="#"><div class="dd-icon">👥</div><div class="dd-text"><div class="dd-title">Leadership</div><div class="dd-desc">Meet the team behind the platform</div></div></a>
           <a class="dd-item" href="#"><div class="dd-icon">💼</div><div class="dd-text"><div class="dd-title">Careers</div><div class="dd-desc">Join 150+ engineers building the future of trading</div></div></a>
+          <a class="dd-item" href="#"><div class="dd-icon">📰</div><div class="dd-text"><div class="dd-title">Press & Media</div><div class="dd-desc">News, awards and media coverage</div></div></a>
         </div>
       </div>
     </li>
   </ul>
-
   <div class="nav-right">
-    <a href="#" class="btn-ghost-sm">Log in</a>
-    <a href="#demo" class="btn-primary">Book a Demo</a>
+    <a href="#" class="btn-ghost-sm">Talk to Sales</a>
+    <a href="#demo" class="btn-red">Book a Demo</a>
   </div>
 </nav>
 
-<!-- ─── HERO ─── -->
+<!-- ── HERO ── -->
 <section class="hero" id="hero">
   <div class="hero-inner">
-    <div class="hero-badge">
-      <span class="hero-badge-dot"></span>
-      Next-Generation Trading Infrastructure
-    </div>
-
-    <div class="hero-headline" id="hero-headline"></div>
-
+    <div class="hero-badge"><span class="hero-badge-dot"></span>Next-Generation Trading Infrastructure</div>
+    <div class="hero-headline" id="hero-hl"></div>
     <p class="hero-sub">Modular, low-latency infrastructure powering brokers, trading platforms, and exchanges. Define your workflows, risk, and strategy — Tradelab powers execution and scale.</p>
-
     <div class="hero-ctas">
-      <a href="#demo" class="btn-primary-lg">
-        Get a Demo
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-      <a href="#products" class="btn-outline-lg">
-        Explore platform
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
+      <a href="#demo" class="btn-red-lg">Get a Demo <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#products" class="btn-outline-lg">Explore Platform <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
-
     <div class="hero-stats">
-      <div class="hero-stat">
-        <div class="hero-stat-num">100K+</div>
-        <div class="hero-stat-label">Trades per second</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">&lt;20ms</div>
-        <div class="hero-stat-label">Order latency</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">5M+</div>
-        <div class="hero-stat-label">Orders daily</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">99.9%</div>
-        <div class="hero-stat-label">Uptime SLA</div>
-      </div>
+      <div class="hero-stat"><div class="hero-stat-num">100K+</div><div class="hero-stat-lbl">Trades / second</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">&lt;20ms</div><div class="hero-stat-lbl">Order latency</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">5M+</div><div class="hero-stat-lbl">Orders daily</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">99.9%</div><div class="hero-stat-lbl">Uptime SLA</div></div>
     </div>
-
-    <!-- Dashboard visual -->
     <div class="hero-visual reveal">
-      <div class="hero-dashboard-bar">
-        <span class="dash-dot dash-dot-r"></span>
-        <span class="dash-dot dash-dot-y"></span>
-        <span class="dash-dot dash-dot-g"></span>
-        <span class="dash-title">Tradelab OMS Dashboard — Live</span>
-      </div>
-      <div class="hero-dashboard-content">
-        <div class="dash-sidebar">
-          <div class="dash-sidebar-label">Watchlist</div>
-          <div class="dash-stock active"><span class="ds-name">RELIANCE</span><span class="ds-val ds-up">+1.2%</span></div>
-          <div class="dash-stock"><span class="ds-name">INFY</span><span class="ds-val ds-dn">-0.4%</span></div>
-          <div class="dash-stock"><span class="ds-name">HDFC BANK</span><span class="ds-val ds-up">+2.1%</span></div>
-          <div class="dash-stock"><span class="ds-name">TCS</span><span class="ds-val ds-up">+0.8%</span></div>
-          <div class="dash-stock"><span class="ds-name">NIFTY 50</span><span class="ds-val ds-dn">-0.2%</span></div>
-          <div class="dash-stock"><span class="ds-name">WIPRO</span><span class="ds-val ds-up">+1.5%</span></div>
-          <div class="dash-stock"><span class="ds-name">SBI</span><span class="ds-val ds-dn">-0.6%</span></div>
+      <div class="dash-bar"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span><span class="dash-bar-title">Tradelab OMS Dashboard — Live</span></div>
+      <div class="dash-body">
+        <div class="dash-side">
+          <div class="dash-side-lbl">Watchlist</div>
+          <div class="dash-stock on"><span class="sn">RELIANCE</span><span class="sv up">+1.2%</span></div>
+          <div class="dash-stock"><span class="sn">INFY</span><span class="sv dn">-0.4%</span></div>
+          <div class="dash-stock"><span class="sn">HDFC BANK</span><span class="sv up">+2.1%</span></div>
+          <div class="dash-stock"><span class="sn">TCS</span><span class="sv up">+0.8%</span></div>
+          <div class="dash-stock"><span class="sn">NIFTY 50</span><span class="sv dn">-0.2%</span></div>
+          <div class="dash-stock"><span class="sn">WIPRO</span><span class="sv up">+1.5%</span></div>
+          <div class="dash-stock"><span class="sn">SBI</span><span class="sv dn">-0.6%</span></div>
         </div>
         <div class="dash-main">
-          <div class="dash-main-top">
+          <div class="dash-top">
             <div>
-              <div class="dash-ticker">RELIANCE · NSE</div>
-              <div class="dash-price" id="dash-price">₹2,847.60</div>
-              <div class="dash-change">▲ 33.80 (1.20%)</div>
+              <div class="dticker">RELIANCE · NSE</div>
+              <div class="dprice">₹2,847.60</div>
+              <div class="dchange">▲ 33.80 (1.20%)</div>
             </div>
-            <div class="dash-action-btns">
-              <button class="dash-btn dash-btn-buy">BUY</button>
-              <button class="dash-btn dash-btn-sell">SELL</button>
-            </div>
+            <div class="dbtns"><button class="dbtn dbtn-b">BUY</button><button class="dbtn dbtn-s">SELL</button></div>
           </div>
-          <div class="dash-chart-area">
-            <canvas id="hero-chart" width="700" height="160" style="width:100%;height:100%;display:block;"></canvas>
-          </div>
-          <div class="dash-footer">
-            <div class="dash-metric">
-              <div class="dm-label">Orders Today</div>
-              <div class="dm-val" id="orders-count">87,432</div>
-            </div>
-            <div class="dash-metric">
-              <div class="dm-label">Risk Utilised</div>
-              <div class="dm-val">34.2%</div>
-            </div>
-            <div class="dash-metric">
-              <div class="dm-label">Latency</div>
-              <div class="dm-val">&lt;18ms</div>
-            </div>
+          <div class="dash-chart"><canvas id="hero-chart" width="680" height="150" style="width:100%;height:100%;display:block;"></canvas></div>
+          <div class="dash-foot">
+            <div class="dm"><div class="dm-l">Orders Today</div><div class="dm-v" id="ord-count">87,432</div></div>
+            <div class="dm"><div class="dm-l">Risk Utilised</div><div class="dm-v">34.2%</div></div>
+            <div class="dm"><div class="dm-l">Latency</div><div class="dm-v">&lt;18ms</div></div>
           </div>
         </div>
       </div>
@@ -1560,431 +452,310 @@ footer {
   </div>
 </section>
 
-<!-- ─── TRUST STRIP ─── -->
+<!-- ── TRUST STRIP ── -->
 <div class="trust-strip">
-  <div class="trust-label">Trusted by India's leading financial institutions</div>
-  <div class="trust-marquee-wrap">
-    <div class="trust-marquee">
-      <span class="trust-logo-item">HDFC Sky</span>
-      <span class="trust-logo-item">Zerodha</span>
-      <span class="trust-logo-item">Pocketful</span>
-      <span class="trust-logo-item">AliceBlue</span>
-      <span class="trust-logo-item">Mastertrust</span>
-      <span class="trust-logo-item">InCred Money</span>
-      <span class="trust-logo-item">Basan Equities</span>
-      <span class="trust-logo-item">Nepal Stock Exchange</span>
-      <span class="trust-logo-item">COSMIC</span>
-      <span class="trust-logo-item">SAS Online</span>
-      <span class="trust-logo-item">HDFC Sky</span>
-      <span class="trust-logo-item">Zerodha</span>
-      <span class="trust-logo-item">Pocketful</span>
-      <span class="trust-logo-item">AliceBlue</span>
-      <span class="trust-logo-item">Mastertrust</span>
-      <span class="trust-logo-item">InCred Money</span>
-      <span class="trust-logo-item">Basan Equities</span>
-      <span class="trust-logo-item">Nepal Stock Exchange</span>
-      <span class="trust-logo-item">COSMIC</span>
-      <span class="trust-logo-item">SAS Online</span>
+  <div class="trust-lbl">Trusted by India's leading financial institutions</div>
+  <div class="marquee-wrap">
+    <div class="marquee">
+      <span class="mq-item">HDFC Sky</span><span class="mq-item">Zerodha</span><span class="mq-item">Pocketful</span><span class="mq-item">AliceBlue</span><span class="mq-item">Mastertrust</span><span class="mq-item">InCred Money</span><span class="mq-item">Basan Equities</span><span class="mq-item">Nepal Stock Exchange</span><span class="mq-item">COSMIC</span><span class="mq-item">Pentad Securities</span><span class="mq-item">SAS Online</span>
+      <span class="mq-item">HDFC Sky</span><span class="mq-item">Zerodha</span><span class="mq-item">Pocketful</span><span class="mq-item">AliceBlue</span><span class="mq-item">Mastertrust</span><span class="mq-item">InCred Money</span><span class="mq-item">Basan Equities</span><span class="mq-item">Nepal Stock Exchange</span><span class="mq-item">COSMIC</span><span class="mq-item">Pentad Securities</span><span class="mq-item">SAS Online</span>
     </div>
   </div>
 </div>
 
-<!-- ─── STATS ─── -->
+<!-- ── STATS BAND ── -->
 <div class="stats-band reveal">
   <div class="stats-grid stagger">
-    <div class="stat-item">
-      <div class="stat-number">100K<span>+</span></div>
-      <div class="stat-desc">Trades per second handled</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-number">5M<span>+</span></div>
-      <div class="stat-desc">Orders processed daily</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-number">14<span>+</span></div>
-      <div class="stat-desc">Years in production</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-number">150<span>+</span></div>
-      <div class="stat-desc">Engineers, 95% product & tech</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-number">99.9<span>%</span></div>
-      <div class="stat-desc">Uptime across all deployments</div>
-    </div>
+    <div class="stat-item"><div class="stat-num">100K<span>+</span></div><div class="stat-lbl">Trades per second handled</div></div>
+    <div class="stat-item"><div class="stat-num">5M<span>+</span></div><div class="stat-lbl">Orders processed daily</div></div>
+    <div class="stat-item"><div class="stat-num">14<span>+</span></div><div class="stat-lbl">Years in production</div></div>
+    <div class="stat-item"><div class="stat-num">150<span>+</span></div><div class="stat-lbl">Engineers, 95% product & tech</div></div>
+    <div class="stat-item"><div class="stat-num">99.9<span>%</span></div><div class="stat-lbl">Uptime across all deployments</div></div>
   </div>
 </div>
 
-<!-- ─── POSITIONING ─── -->
-<div class="positioning">
-  <div class="positioning-inner">
-    <div class="pos-content reveal">
-      <div class="section-label">Why Tradelab</div>
-      <div class="pos-title">Control your trading business. We handle the infrastructure.</div>
-      <div class="pos-desc">Define workflows, risk parameters, and strategy while Tradelab powers execution and scale. Built for high-volume trading environments with the compliance posture institutions demand.</div>
-      <div class="pos-chips">
-        <span class="pos-chip">Low-Latency Execution</span>
-        <span class="pos-chip">Real-Time Risk Control</span>
-        <span class="pos-chip">Modular Architecture</span>
-        <span class="pos-chip">Open API Ecosystem</span>
-        <span class="pos-chip">ISO 27001 Certified</span>
-        <span class="pos-chip">SEBI Aligned</span>
-      </div>
+<!-- ── PROBLEM BAND ── -->
+<div class="problem">
+  <div class="problem-inner">
+    <div class="reveal">
+      <div class="lbl w">The Challenge</div>
+      <h2 class="h2 w">Legacy infrastructure is holding your brokerage back.</h2>
+      <p class="sub w">At peak market moments, execution speed means nothing without control. Your current stack was never built for modern trading volumes.</p>
     </div>
-    <div class="pos-visual stagger">
-      <div class="pos-card">
-        <div class="pos-card-icon">⚡</div>
-        <div class="pos-card-title">High-Volume Ready</div>
-        <div class="pos-card-desc">Built for peak market conditions — budget days, elections, volatility spikes.</div>
+    <div class="problem-cards stagger">
+      <div class="pc">
+        <div class="pc-title">Vendor lock-in & painful migrations</div>
+        <div class="pc-desc">Tightly coupled ORMS architecture makes T+1 migrations a months-long nightmare with zero flexibility.</div>
+        <div class="pc-tags"><span class="pc-tag">Legacy ORMS</span><span class="pc-tag">T+1 problem</span></div>
       </div>
-      <div class="pos-card">
-        <div class="pos-card-icon">🔒</div>
-        <div class="pos-card-title">Security & Compliance</div>
-        <div class="pos-card-desc">AES-256, TLS 1.3, VAPT compliant, ISO 9001 & 27001 certified.</div>
+      <div class="pc">
+        <div class="pc-title">Thread-bound OMS explodes under load</div>
+        <div class="pc-desc">Thread-per-client designs cause memory explosion and latency spikes exactly when you can least afford it.</div>
+        <div class="pc-tags"><span class="pc-tag">Peak failures</span></div>
       </div>
-      <div class="pos-card">
-        <div class="pos-card-icon">🔌</div>
-        <div class="pos-card-title">Open API Ecosystem</div>
-        <div class="pos-card-desc">REST, WebSocket, FIX Protocol. Postman-ready SDKs for fast integration.</div>
+      <div class="pc">
+        <div class="pc-title">No unified risk view</div>
+        <div class="pc-desc">Risk, execution, and UI running in the same process. A single failure cascades across all your clients.</div>
+        <div class="pc-tags"><span class="pc-tag">Single point of failure</span></div>
       </div>
-      <div class="pos-card">
-        <div class="pos-card-icon">☁️</div>
-        <div class="pos-card-title">Cloud-Native</div>
-        <div class="pos-card-desc">Kubernetes-ready, multi-AZ AWS, Redis state, auto-scaling built in.</div>
+      <div class="pc">
+        <div class="pc-title">Latency you can't compete with</div>
+        <div class="pc-desc">Legacy middleware adds hundreds of milliseconds to every order. Modern traders notice — and leave.</div>
+        <div class="pc-tags"><span class="pc-tag">High latency</span></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ─── PRODUCTS ─── -->
+<!-- ── PRODUCTS ── -->
 <section class="products" id="products">
   <div class="section-inner">
-    <div class="section-header reveal">
+    <div class="sec-hdr reveal">
       <div>
-        <div class="section-label">Platform</div>
-        <h2 class="section-title">A modular trading stack built for execution, risk, and scale.</h2>
-        <p class="section-sub">Six independently scalable modules — or deploy the full stack. Your infrastructure, your rules.</p>
+        <div class="lbl">Platform</div>
+        <h2 class="h2">A modular trading stack built for execution, risk, and scale.</h2>
+        <p class="sub" style="margin-bottom:0;">Six independently scalable modules — or deploy the full stack. Your infrastructure, your rules.</p>
       </div>
-      <a href="#demo" class="btn-primary-lg">Explore the platform →</a>
+      <a href="#demo" class="btn-red-lg">Explore the platform →</a>
     </div>
+    <div class="prod-grid stagger">
 
-    <div class="products-grid stagger">
-      <div class="product-card">
-        <span class="product-arrow">↗</span>
-        <div class="product-mockup"><canvas id="c-primus" width="280" height="130"></canvas></div>
-        <div class="product-tag">Middleware</div>
-        <div class="product-name">Primus</div>
-        <div class="product-desc">The API orchestration layer connecting OMS, RMS, frontend, and backoffice into one unified hub — real-time routing, zero state leakage.</div>
-        <div class="chip-row">
-          <span class="chip">Multi-ORMS</span>
-          <span class="chip">REST + WebSocket</span>
-          <span class="chip">T+1 migration</span>
-        </div>
+      <div class="prod-card">
+        <span class="arr">↗</span>
+        <div class="prod-mock"><canvas id="c-oms" width="280" height="128"></canvas></div>
+        <div class="prod-tag">Order & Risk Management</div>
+        <div class="prod-name">OMS & RMS</div>
+        <div class="prod-desc">Stateless, horizontally scalable OMS built in Go with full lifecycle tracking and sub-20ms routing. Paired with an in-memory real-time risk engine — pre-trade, post-trade, and live M2M checks. Kill-switch, SPAN margin, and auto square-off — all configurable. Powered by middleware for unified API orchestration.</div>
+        <div class="chips"><span class="chip">Go core</span><span class="chip">&lt;20ms latency</span><span class="chip">NSE/BSE/MCX</span><span class="chip">In-memory engine</span><span class="chip">Kill-switch</span><span class="chip">SPAN margin</span><span class="chip">Multi-ORMS</span></div>
       </div>
 
-      <div class="product-card">
-        <span class="product-arrow">↗</span>
-        <div class="product-mockup"><canvas id="c-oms" width="280" height="130"></canvas></div>
-        <div class="product-tag">Order Management</div>
-        <div class="product-name">Order Management System</div>
-        <div class="product-desc">Stateless, horizontally scalable OMS built in Go. BO, CO, GTT, Iceberg, SIP orders with full lifecycle tracking and sub-20ms routing.</div>
-        <div class="chip-row">
-          <span class="chip">Go core</span>
-          <span class="chip">&lt;20ms latency</span>
-          <span class="chip">NSE/BSE/MCX</span>
-        </div>
+      <div class="prod-card">
+        <span class="arr">↗</span>
+        <div class="prod-mock"><canvas id="c-kyc" width="280" height="128"></canvas></div>
+        <div class="prod-tag">KYC & Onboarding</div>
+        <div class="prod-name">KYC & Onboarding</div>
+        <div class="prod-desc">KYC in under 2 minutes. Fully automated. SEBI compliant. Aadhaar-based eKYC with UIDAI integration, Video KYC fallback, DigiLocker document verification, PAN validation, IPV, and nomination — all in one flow. Used across 10+ brokers in India.</div>
+        <div class="chips"><span class="chip">Aadhaar eKYC</span><span class="chip">Video KYC</span><span class="chip">DigiLocker</span><span class="chip">&lt;2 min</span><span class="chip">SEBI Compliant</span></div>
       </div>
 
-      <div class="product-card">
-        <span class="product-arrow">↗</span>
-        <div class="product-mockup"><canvas id="c-rms" width="280" height="130"></canvas></div>
-        <div class="product-tag">Risk Management</div>
-        <div class="product-name">Risk Management System</div>
-        <div class="product-desc">In-memory real-time risk engine with pre-trade, post-trade, and live M2M checks. Kill-switch, SPAN margin, and auto square-off — all configurable.</div>
-        <div class="chip-row">
-          <span class="chip">In-memory engine</span>
-          <span class="chip">Kill-switch</span>
-          <span class="chip">SPAN margin</span>
-        </div>
+      <div class="prod-card">
+        <span class="arr">↗</span>
+        <div class="prod-mock"><canvas id="c-app" width="280" height="128"></canvas></div>
+        <div class="prod-tag">Frontend</div>
+        <div class="prod-name">Trading Platform</div>
+        <div class="prod-desc">A fully-featured trading platform. White-label ready. Live in weeks. Web, mobile (iOS/Android), and desktop in one codebase. Charting, watchlists, order book, portfolio view with custom branding, domain, and colour scheme. Supports equity, F&O, commodity, currency. 65% of Tradelab's user base on mobile.</div>
+        <div class="chips"><span class="chip">White-label</span><span class="chip">Web + Mobile + Desktop</span><span class="chip">Real-time data</span><span class="chip">iOS/Android</span></div>
       </div>
 
-      <div class="product-card">
-        <span class="product-arrow">↗</span>
-        <div class="product-mockup"><canvas id="c-app" width="280" height="130"></canvas></div>
-        <div class="product-tag">Frontend</div>
-        <div class="product-name">Trading Applications</div>
-        <div class="product-desc">White-label web, mobile (Flutter + Kotlin), and dealer terminal — fully customizable, shipped to App Store and Play Store under your brand.</div>
-        <div class="chip-row">
-          <span class="chip">White-label</span>
-          <span class="chip">Web + Mobile</span>
-          <span class="chip">Dealer terminal</span>
-        </div>
+      <div class="prod-card">
+        <span class="arr">↗</span>
+        <div class="prod-mock"><canvas id="c-exchange" width="280" height="128"></canvas></div>
+        <div class="prod-tag">Exchange Infrastructure</div>
+        <div class="prod-name">Exchange Infrastructure</div>
+        <div class="prod-desc">Exchange-grade matching engine. Battle-tested at a national exchange. Ultra-low latency matching, full crypto exchange operations, 24/7 high-availability architecture, settlement, clearing, and collateral management — scalable to millions of trades per day with regulatory reporting built in.</div>
+        <div class="chips"><span class="chip">&lt;20μs latency</span><span class="chip">1M orders/sec</span><span class="chip">24/7 HA</span><span class="chip">Settlement</span><span class="chip">Live at NEPSE</span></div>
       </div>
 
-      <div class="product-card">
-        <span class="product-arrow">↗</span>
-        <div class="product-mockup"><canvas id="c-feeds" width="280" height="130"></canvas></div>
-        <div class="product-tag">Market Data</div>
-        <div class="product-name">Octopus Feed Engine</div>
-        <div class="product-desc">C++ feed parser and WebSocket dissemination engine built for microsecond-level market data distribution across thousands of concurrent users.</div>
-        <div class="chip-row">
-          <span class="chip">C++ parser</span>
-          <span class="chip">WebSocket</span>
-          <span class="chip">Multi-exchange</span>
-        </div>
+      <div class="prod-card">
+        <span class="arr">↗</span>
+        <div class="prod-mock"><canvas id="c-feeds" width="280" height="128"></canvas></div>
+        <div class="prod-tag">Market Data</div>
+        <div class="prod-name">Market Data Engine</div>
+        <div class="prod-desc">C++ feed parser and WebSocket dissemination engine built for microsecond-level market data distribution across thousands of concurrent user streams.</div>
+        <div class="chips"><span class="chip">C++ parser</span><span class="chip">WebSocket push</span><span class="chip">Multi-exchange</span><span class="chip">Tick data</span></div>
       </div>
 
-      <div class="product-card">
-        <span class="product-arrow">↗</span>
-        <div class="product-mockup"><canvas id="c-optre" width="280" height="130"></canvas></div>
-        <div class="product-tag">Exchange Infrastructure</div>
-        <div class="product-name">Optre Matching Engine</div>
-        <div class="product-desc">Exchange-grade matching engine with &lt;20μs execution latency, 1M orders/sec throughput, and primary-secondary fault tolerance — live at Nepal SE.</div>
-        <div class="chip-row">
-          <span class="chip">&lt;20μs latency</span>
-          <span class="chip">1M orders/sec</span>
-          <span class="chip">C++ core</span>
-        </div>
-      </div>
     </div>
   </div>
 </section>
 
-<!-- ─── SOLUTIONS ─── -->
+<!-- ── SOLUTIONS ── -->
 <section class="solutions" id="solutions">
   <div class="section-inner">
-    <div class="section-label reveal">Solutions</div>
-    <h2 class="section-title reveal">Built for how finance actually works.</h2>
-    <p class="section-sub reveal">Deployed across brokers, banks, and exchanges — each with a different operating model. Tradelab adapts.</p>
-
-    <div class="solutions-layout reveal">
-      <div class="solutions-tabs">
-        <button class="tab-btn active" onclick="switchTab('brokers',this)"><span class="t-icon">📈</span> For Brokers</button>
-        <button class="tab-btn" onclick="switchTab('banks',this)"><span class="t-icon">🏦</span> For Banks</button>
-        <button class="tab-btn" onclick="switchTab('exchanges',this)"><span class="t-icon">⚡</span> For Exchanges</button>
-        <button class="tab-btn" onclick="switchTab('algo',this)"><span class="t-icon">🤖</span> Algo &amp; HFT</button>
-      </div>
-
+    <div class="lbl reveal">Solutions</div>
+    <h2 class="h2 reveal">The platform adapts to you.</h2>
+    <p class="sub reveal">Deployed across brokers, banks, and exchanges — each with a different operating model. Tradelab adapts.</p>
+    <div class="sol-layout reveal">
       <div>
-        <div class="solutions-panel active" id="panel-brokers">
-          <div class="panel-title">Stop duct-taping legacy systems together.</div>
-          <div class="panel-desc">Retail brokers running OmneNest, Greek, or Symphony face vendor lock-in, painful T+1 migrations, and no single view of client risk. Tradelab sits above your ORMS as a unified control plane.</div>
-          <div class="panel-features">
-            <div class="panel-feature">Multi-ORMS connectivity — switch vendors overnight</div>
-            <div class="panel-feature">Real-time risk across all clients, one dashboard</div>
-            <div class="panel-feature">White-label web, mobile, and dealer apps</div>
-            <div class="panel-feature">Advanced orders: GTT, SIP, Iceberg, Basket</div>
-            <div class="panel-feature">BOD automation, SPAN margin, auto square-off</div>
-            <div class="panel-feature">CDSL e-Pledge, EDIS, and IPO scheduling built in</div>
+        <button class="tab-btn active" onclick="switchTab('brokers',this)"><span class="tab-icon">📈</span> For Brokers</button>
+        <button class="tab-btn" onclick="switchTab('banks',this)"><span class="tab-icon">🏦</span> For Banks</button>
+        <button class="tab-btn" onclick="switchTab('exchanges',this)"><span class="tab-icon">⚡</span> For Exchanges</button>
+        <button class="tab-btn" onclick="switchTab('algo',this)"><span class="tab-icon">🤖</span> Algo &amp; HFT</button>
+      </div>
+      <div>
+        <div class="sol-panel active" id="panel-brokers">
+          <div class="pan-h">Stop duct-taping legacy systems together.</div>
+          <div class="pan-d">Retail brokers running OmneNest, Greek, or Symphony face vendor lock-in, painful T+1 migrations, and no single view of client risk. Tradelab sits above your ORMS as a unified control plane.</div>
+          <div class="pan-feats">
+            <div class="pf">Multi-ORMS connectivity — switch vendors overnight</div>
+            <div class="pf">Real-time risk across all clients, one dashboard</div>
+            <div class="pf">White-label web, mobile, and dealer applications</div>
+            <div class="pf">Advanced orders: GTT, SIP, Iceberg, Basket</div>
+            <div class="pf">BOD automation, SPAN margin, auto square-off</div>
+            <div class="pf">CDSL e-Pledge, EDIS, and IPO scheduling</div>
           </div>
-          <div class="proof-bar">
-            <div class="proof-bar-icon">A</div>
-            <div class="proof-bar-text"><strong>15× monthly active user growth</strong> — delivered for a leading discount broker within five years, without a single architecture rewrite.</div>
-          </div>
+          <div class="proof-bar"><div class="pb-ico">A</div><div class="pb-txt"><strong>15× monthly active user growth</strong> — delivered for a leading discount broker within five years, without a single architecture rewrite.</div></div>
         </div>
-
-        <div class="solutions-panel" id="panel-banks">
-          <div class="panel-title">Bank-grade trading, without the complexity.</div>
-          <div class="panel-desc">Bank subsidiaries need the compliance posture of a regulated institution and the UX of a fintech. Tradelab delivers both — with TCS BaNCS integration, ISO 27001 alignment, and sub-3-minute KYC onboarding.</div>
-          <div class="panel-features">
-            <div class="panel-feature">TCS BaNCS and backoffice integration</div>
-            <div class="panel-feature">ISO 9001 &amp; 27001 certified infrastructure</div>
-            <div class="panel-feature">AES-256 encryption, TLS 1.3, VAPT compliant</div>
-            <div class="panel-feature">Stride KYC — 3-minute digital onboarding</div>
-            <div class="panel-feature">Role-based access: Admin / Dealer / Trader</div>
-            <div class="panel-feature">Audit trail, SEBI cyber framework alignment</div>
+        <div class="sol-panel" id="panel-banks">
+          <div class="pan-h">Bank-grade trading, without the bank-grade complexity.</div>
+          <div class="pan-d">Bank subsidiaries need the compliance posture of a regulated institution and the UX of a modern fintech. Tradelab delivers both — with core banking integration, ISO 27001 alignment, and sub-3-minute KYC onboarding.</div>
+          <div class="pan-feats">
+            <div class="pf">TCS BaNCS and core banking backoffice integration</div>
+            <div class="pf">ISO 9001 &amp; 27001 certified infrastructure</div>
+            <div class="pf">AES-256 encryption, TLS 1.3, VAPT compliant</div>
+            <div class="pf">3-minute digital KYC onboarding</div>
+            <div class="pf">Role-based access: Admin / Dealer / Trader</div>
+            <div class="pf">SEBI cyber framework alignment &amp; full audit trail</div>
           </div>
-          <div class="proof-bar">
-            <div class="proof-bar-icon">H</div>
-            <div class="proof-bar-text"><strong>&lt;3 min KYC onboarding via Stride</strong> — a major bank subsidiary became India's fastest-growing discount broker. 4+ years, zero downtime events.</div>
-          </div>
+          <div class="proof-bar"><div class="pb-ico">H</div><div class="pb-txt"><strong>Under 3-minute KYC onboarding</strong> — a major bank subsidiary became India's fastest-growing discount broker. 4+ years, zero downtime events.</div></div>
         </div>
-
-        <div class="solutions-panel" id="panel-exchanges">
-          <div class="panel-title">Infrastructure that scales with volume — not against it.</div>
-          <div class="panel-desc">Exchanges require deterministic latency, fault isolation, and horizontal scalability that doesn't degrade under volatility. Tradelab's decoupled adapter architecture delivers exactly that.</div>
-          <div class="panel-features">
-            <div class="panel-feature">Decoupled exchange adapters — NSE, BSE, MCX</div>
-            <div class="panel-feature">Stateless OMS cluster — scale independently</div>
-            <div class="panel-feature">Redis state persistence, Kubernetes-ready</div>
-            <div class="panel-feature">C++ feed parser for microsecond data delivery</div>
-            <div class="panel-feature">Multi-AZ AWS deployment with DR failover</div>
-            <div class="panel-feature">Full exchange builds — already live at national level</div>
+        <div class="sol-panel" id="panel-exchanges">
+          <div class="pan-h">Infrastructure that scales with volume — not against it.</div>
+          <div class="pan-d">Exchanges require deterministic latency, fault isolation, and horizontal scalability that doesn't degrade under volatility. Tradelab's decoupled adapter architecture delivers exactly that.</div>
+          <div class="pan-feats">
+            <div class="pf">Decoupled exchange adapters — NSE, BSE, MCX isolated</div>
+            <div class="pf">Stateless OMS cluster — scale each component independently</div>
+            <div class="pf">Redis state persistence, Kubernetes-ready deployment</div>
+            <div class="pf">C++ feed parser for microsecond data delivery</div>
+            <div class="pf">Multi-AZ AWS deployment with DR failover</div>
+            <div class="pf">Full exchange builds — live at national-level deployment</div>
           </div>
-          <div class="proof-bar">
-            <div class="proof-bar-icon">N</div>
-            <div class="proof-bar-text"><strong>National-level exchange deployed end-to-end</strong> — complete infrastructure proving stability and regulatory compliance at scale.</div>
-          </div>
+          <div class="proof-bar"><div class="pb-ico">N</div><div class="pb-txt"><strong>National-level exchange deployed end-to-end</strong> — complete infrastructure proving stability and regulatory compliance under high-volume trading.</div></div>
         </div>
-
-        <div class="solutions-panel" id="panel-algo">
-          <div class="panel-title">Algo &amp; HFT ready — without exposing strategy IP.</div>
-          <div class="panel-desc">Tradelab enables strategy-agnostic Algo and HFT trading. Your strategies stay yours. We provide the infrastructure, controls, and execution speed your models demand.</div>
-          <div class="panel-features">
-            <div class="panel-feature">Plug-in / plug-out architecture</div>
-            <div class="panel-feature">Private strategy deployment</div>
-            <div class="panel-feature">Co-location &amp; exchange proximity ready</div>
-            <div class="panel-feature">OMS/RMS-driven real-time risk enforcement</div>
-            <div class="panel-feature">Full visibility without operational overhead</div>
-            <div class="panel-feature">50K–100K orders/sec per instrument pair</div>
+        <div class="sol-panel" id="panel-algo">
+          <div class="pan-h">Algo &amp; HFT ready — without exposing strategy IP.</div>
+          <div class="pan-d">Tradelab enables strategy-agnostic Algo and HFT trading. Plug-in / plug-out architecture means your strategies stay private. We provide the infrastructure, controls, and execution speed your models demand.</div>
+          <div class="pan-feats">
+            <div class="pf">Plug-in / plug-out strategy architecture</div>
+            <div class="pf">Private strategy deployment — zero IP exposure</div>
+            <div class="pf">Co-location &amp; exchange proximity ready</div>
+            <div class="pf">OMS/RMS-driven real-time risk enforcement</div>
+            <div class="pf">50K–100K orders/sec per instrument pair</div>
+            <div class="pf">Full visibility without operational overhead</div>
           </div>
-          <div class="proof-bar">
-            <div class="proof-bar-icon">A</div>
-            <div class="proof-bar-text"><strong>Strategy-agnostic HFT infrastructure</strong> — deployed in 24/7 high-volatility markets, validated at national-scale crypto exchanges.</div>
-          </div>
+          <div class="proof-bar"><div class="pb-ico">A</div><div class="pb-txt"><strong>Strategy-agnostic HFT infrastructure</strong> — deployed in 24/7 high-volatility markets, validated at crypto exchange scale.</div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── ARCHITECTURE ─── -->
+<!-- ── ARCHITECTURE ── -->
 <section class="architecture" id="architecture">
   <div class="section-inner">
-    <div class="section-label reveal">Architecture</div>
-    <h2 class="section-title reveal">Designed to not fail when it matters most.</h2>
-    <p class="section-sub reveal">Tradelab replaces monolithic, thread-bound OMS designs with a stateless, co-routine based cluster. Every component scales independently. No shared failure paths.</p>
-
-    <div class="arch-visual reveal">
+    <div class="lbl reveal">Architecture</div>
+    <h2 class="h2 reveal">Designed to not fail when it matters most.</h2>
+    <p class="sub reveal">Tradelab replaces monolithic, thread-bound OMS designs with a stateless, co-routine based cluster. Every component scales independently. No shared failure paths.</p>
+    <div class="arch-vis reveal">
       <div class="arch-side old">
-        <div class="arch-side-label">Traditional OMS</div>
-        <div class="arch-title">What breaks under load</div>
+        <div class="arch-lbl">Traditional OMS — What breaks</div>
+        <div class="arch-h">What breaks under load</div>
         <div class="arch-items">
-          <div class="arch-item bad">✗ Single ORMS instance per client group</div>
-          <div class="arch-item bad">✗ Tightly coupled exchange adapters</div>
-          <div class="arch-item bad">✗ Thread-per-client — memory explosion at peak</div>
-          <div class="arch-item bad">✗ UI, risk, and execution in one process</div>
-          <div class="arch-item bad">✗ Single point of failure — no fault isolation</div>
+          <div class="ai bad">✗ Single ORMS instance per client group</div>
+          <div class="ai bad">✗ Tightly coupled exchange adapters — one failure = full outage</div>
+          <div class="ai bad">✗ Thread-per-client model — memory explosion at peak</div>
+          <div class="ai bad">✗ UI, risk, and execution in one monolithic process</div>
+          <div class="ai bad">✗ No horizontal scalability — vertical only, expensive</div>
         </div>
       </div>
       <div class="arch-side new">
-        <div class="arch-side-label">Tradelab OMS</div>
-        <div class="arch-title">What runs without fear</div>
+        <div class="arch-lbl">Tradelab OMS — What runs without fear</div>
+        <div class="arch-h">What runs without fear</div>
         <div class="arch-items">
-          <div class="arch-item good">✓ Stateless cluster — infinite horizontal scale</div>
-          <div class="arch-item good">✓ Shared adapter pool — NSE/BSE/MCX decoupled</div>
-          <div class="arch-item good">✓ Go co-routines — lightweight, predictable under load</div>
-          <div class="arch-item good">✓ Risk engine as independent microservice</div>
-          <div class="arch-item good">✓ Redis state, Kubernetes-managed, multi-AZ</div>
+          <div class="ai good">✓ Stateless cluster — infinite horizontal scale on Kubernetes</div>
+          <div class="ai good">✓ Shared adapter pool — NSE/BSE/MCX completely decoupled</div>
+          <div class="ai good">✓ Go co-routines — lightweight and predictable under peak load</div>
+          <div class="ai good">✓ Risk engine as independent microservice — fully isolated</div>
+          <div class="ai good">✓ Redis state, Kubernetes-managed, multi-AZ with DR failover</div>
         </div>
       </div>
     </div>
-
-    <div class="arch-features stagger">
-      <div class="arch-feature">
-        <div class="af-icon">⚡</div>
-        <div class="af-title">Sub-20ms routing</div>
-        <div class="af-desc">Orders hit the exchange in under 20ms, end to end.</div>
-      </div>
-      <div class="arch-feature">
-        <div class="af-icon">🔄</div>
-        <div class="af-title">Zero-downtime deploys</div>
-        <div class="af-desc">Module upgrades without touching the core trading loop.</div>
-      </div>
-      <div class="arch-feature">
-        <div class="af-icon">🛡️</div>
-        <div class="af-title">Fault isolation</div>
-        <div class="af-desc">A feed outage doesn't cascade to execution. Ever.</div>
-      </div>
-      <div class="arch-feature">
-        <div class="af-icon">📈</div>
-        <div class="af-title">Peak surge handling</div>
-        <div class="af-desc">Auto-scaling absorbs budget day spikes without manual intervention.</div>
-      </div>
+    <div class="arch-feats stagger">
+      <div class="af"><div class="af-ico">⚡</div><div class="af-h">Sub-20ms routing</div><div class="af-d">Orders hit the exchange in under 20ms, end to end — even at 100K+ per second.</div></div>
+      <div class="af"><div class="af-ico">🔄</div><div class="af-h">Zero-downtime deploys</div><div class="af-d">Module upgrades without touching the core trading loop. Ever.</div></div>
+      <div class="af"><div class="af-ico">🛡️</div><div class="af-h">Complete fault isolation</div><div class="af-d">A feed outage doesn't cascade to execution. Components fail gracefully, independently.</div></div>
     </div>
   </div>
 </section>
 
-<!-- ─── WHY TRADELAB ─── -->
-<section class="why-section">
+<!-- ── WHY TRADELAB ── -->
+<section class="why">
   <div class="section-inner">
-    <div class="section-label reveal">Why Tradelab</div>
-    <h2 class="section-title reveal">Built for real market conditions.</h2>
-    <p class="section-sub reveal">Over a decade of live market experience. Featured by Forbes & D-Globalist as a high-impact, future-ready technology company.</p>
-
+    <div class="lbl reveal">Why Tradelab</div>
+    <h2 class="h2 reveal">Built for real market conditions.</h2>
+    <p class="sub reveal">Over a decade of live market experience. Featured by Forbes & D-Globalist as a high-impact, future-ready technology company.</p>
     <div class="why-grid stagger">
-      <div class="why-card">
-        <span class="why-icon">🔒</span>
-        <div class="why-title">OMS/RMS as core safety layer</div>
-        <div class="why-desc">Real-time T+0 risk management with blocked vs equity-based liquidation logic and algo-level kill switches.</div>
-      </div>
-      <div class="why-card">
-        <span class="why-icon">⚡</span>
-        <div class="why-title">Exchange-grade execution</div>
-        <div class="why-desc">C++ matching engine delivering &lt;20μs latency and up to 1M orders/sec throughput with primary-secondary fault tolerance.</div>
-      </div>
-      <div class="why-card">
-        <span class="why-icon">📊</span>
-        <div class="why-title">Proven at peak volume</div>
-        <div class="why-desc">Battle-tested through demonetisation, COVID volatility, and election spikes — same infrastructure, zero rearchitecting.</div>
-      </div>
-      <div class="why-card">
-        <span class="why-icon">☁️</span>
-        <div class="why-title">Cloud-native, modular, API-driven</div>
-        <div class="why-desc">Kubernetes-ready, OAuth 2.0 secure gateway, REST/WebSocket/FIX Protocol, Postman-ready developer SDKs.</div>
-      </div>
-      <div class="why-card">
-        <span class="why-icon">🤖</span>
-        <div class="why-title">Built for algos & HFT firms</div>
-        <div class="why-desc">Strategy-agnostic infrastructure with full visibility and no IP exposure. Your strategies remain entirely yours.</div>
-      </div>
-      <div class="why-card">
-        <span class="why-icon">🏆</span>
-        <div class="why-title">14+ years live market experience</div>
-        <div class="why-desc">From startup brokers to national exchanges — same platform, same uptime commitment, across every deployment.</div>
-      </div>
+      <div class="wc"><span class="wc-ico">🔒</span><div class="wc-h">OMS/RMS as core safety layer</div><div class="wc-d">Real-time T+0 risk management with blocked vs equity-based liquidation logic and algo-level kill switches.</div></div>
+      <div class="wc"><span class="wc-ico">⚡</span><div class="wc-h">Exchange-grade execution</div><div class="wc-d">C++ matching engine delivering &lt;20μs latency and 1M orders/sec throughput with primary-secondary fault tolerance.</div></div>
+      <div class="wc"><span class="wc-ico">📊</span><div class="wc-h">Proven at peak volume</div><div class="wc-d">Battle-tested through demonetisation, COVID volatility, and election spikes — same infrastructure, zero rearchitecting.</div></div>
+      <div class="wc"><span class="wc-ico">☁️</span><div class="wc-h">Cloud-native, modular, API-driven</div><div class="wc-d">Kubernetes-ready, OAuth 2.0 secure gateway, REST/WebSocket/FIX Protocol, Postman-ready developer SDKs.</div></div>
+      <div class="wc"><span class="wc-ico">🤖</span><div class="wc-h">Built for algos & HFT firms</div><div class="wc-d">Strategy-agnostic infrastructure with full visibility and no IP exposure. Your strategies remain entirely yours.</div></div>
+      <div class="wc"><span class="wc-ico">🏆</span><div class="wc-h">14+ years live market experience</div><div class="wc-d">From startup brokers to national exchanges — same platform, same uptime commitment, across every deployment.</div></div>
     </div>
   </div>
 </section>
 
-<!-- ─── CLIENT PROOF ─── -->
-<section class="proof" id="clients">
+<!-- ── CLIENT OUTCOMES ── -->
+<section class="outcomes" id="outcomes">
   <div class="section-inner">
-    <div class="section-label reveal">Client Outcomes</div>
-    <h2 class="section-title reveal">Real results, not projections.</h2>
-    <p class="section-sub reveal">Every number below is from a live deployment. No sandboxes. No pilots.</p>
-
-    <div class="proof-grid stagger">
-      <div class="proof-card">
-        <div class="proof-tag">Transformation · 4+ years live</div>
-        <div class="proof-client">Bank to Fintech</div>
-        <div class="proof-story">A major bank's retail brokerage ran legacy infrastructure that couldn't compete with discount fintechs. Tradelab replaced the entire front and mid office — OMS, RMS, mobile app, and KYC — integrated directly with core banking. Now competing head-to-head with India's top discount brokers.</div>
-        <div class="proof-metric">
-          <div class="proof-metric-number">&lt;3min</div>
-          <div class="proof-metric-label">KYC onboarding via Stride</div>
-        </div>
+    <div class="lbl reveal">Client Outcomes</div>
+    <h2 class="h2 reveal">Real results, not projections.</h2>
+    <p class="sub reveal">Every number below is from a live deployment. No sandboxes. No pilots. No simulations.</p>
+    <div class="outcome-grid stagger">
+      <div class="oc">
+        <div class="oc-tag">Transformation · 4+ years live</div>
+        <div class="oc-title">Bank to India's Fastest-Growing Broker</div>
+        <div class="oc-story">A major bank's retail brokerage ran legacy infrastructure that couldn't compete with discount fintechs. Tradelab replaced the entire front and mid office — OMS, RMS, mobile app, and KYC — integrated directly with the core banking system. The result: competing head-to-head with India's top discount brokers within 18 months.</div>
+        <div class="oc-metric"><div class="oc-num">&lt;3min</div><div class="oc-lbl">KYC onboarding</div></div>
       </div>
-
-      <div class="proof-card">
-        <div class="proof-tag">Scale · 15× growth</div>
-        <div class="proof-client">Discount Broker Scale-up</div>
-        <div class="proof-story">Under 5,000 monthly active logins and a frontend that couldn't retain modern traders. Tradelab deployed a full web, mobile, and API stack. Within five years, monthly logins crossed 75,000 — a 15× increase without a single architecture rewrite.</div>
-        <div class="proof-metric">
-          <div class="proof-metric-number">15×</div>
-          <div class="proof-metric-label">Monthly active user growth</div>
-        </div>
+      <div class="oc">
+        <div class="oc-tag">Scale · 15× growth in 5 years</div>
+        <div class="oc-title">Discount Broker Scale-Up</div>
+        <div class="oc-story">Under 5,000 monthly active logins and a frontend that couldn't retain modern traders. Tradelab deployed a full web, mobile, and API stack. Within five years, monthly logins crossed 75,000 — a 15× increase without a single architecture rewrite.</div>
+        <div class="oc-metric"><div class="oc-num">15×</div><div class="oc-lbl">Monthly active user growth</div></div>
       </div>
-
-      <div class="proof-card">
-        <div class="proof-tag">Stability · 8+ years</div>
-        <div class="proof-client">Zero Downtime Track Record</div>
-        <div class="proof-story">Eight years of maximum uptime through the most volatile markets in Indian history — demonetisation, COVID, election spikes. Platform stability was core to a successful acquisition and rebranding by a major financial group.</div>
-        <div class="proof-metric">
-          <div class="proof-metric-number">8yrs</div>
-          <div class="proof-metric-label">Zero unplanned downtime events</div>
-        </div>
+      <div class="oc">
+        <div class="oc-tag">Stability · 8+ years continuous</div>
+        <div class="oc-title">Zero-Downtime Track Record</div>
+        <div class="oc-story">Eight years of maximum uptime through the most volatile markets in Indian financial history — demonetisation, COVID crashes, election results spikes. Platform stability was core to a successful acquisition and rebranding by a major financial services group.</div>
+        <div class="oc-metric"><div class="oc-num">8yrs</div><div class="oc-lbl">Zero unplanned downtime events</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── TECH STACK ─── -->
+<!-- ── CLIENT LOGOS ── -->
+<div class="client-logos">
+  <div class="cl-lbl">Institutions that run on Tradelab</div>
+  <div class="cl-grid">
+    <div class="cl-box">HDFC Sky</div>
+    <div class="cl-box">Zerodha</div>
+    <div class="cl-box">Pocketful</div>
+    <div class="cl-box">AliceBlue</div>
+    <div class="cl-box">Mastertrust</div>
+    <div class="cl-box">InCred Money</div>
+    <div class="cl-box">Basan Equities</div>
+    <div class="cl-box">Nepal SE</div>
+    <div class="cl-box">COSMIC</div>
+    <div class="cl-box">Pentad Securities</div>
+  </div>
+</div>
+
+<!-- ── TESTIMONIAL ── -->
+<div class="testimonial">
+  <div class="test-inner">
+    <span class="test-mark">"</span>
+    <div class="test-quote">After a time being in the financial services business, I found a technology team that can not only execute your ideas but also make them much better.</div>
+    <div class="test-author">Nithin Kamath · Founder & CEO, Zerodha</div>
+  </div>
+</div>
+
+<!-- ── TECH ── -->
 <section class="tech">
   <div class="section-inner">
-    <div class="section-label reveal">Technology</div>
-    <h2 class="section-title reveal">The right language for every layer.</h2>
-    <p class="section-sub reveal">Purpose-built at each tier — C++ where microseconds matter, Go for order throughput, Elixir for real-time concurrency, React and Flutter for trader UX.</p>
-
+    <div class="lbl reveal">Technology</div>
+    <h2 class="h2 reveal">The right language for every layer.</h2>
+    <p class="sub reveal">Purpose-built at each tier — C++ where microseconds matter, Go for order throughput, Elixir for real-time concurrency, React and Flutter for trader UX.</p>
     <div class="tech-grid stagger">
       <div class="tech-item"><div class="tech-emoji">🔷</div><div class="tech-lang">Go</div><div class="tech-role">OMS Application</div></div>
       <div class="tech-item"><div class="tech-emoji">⚡</div><div class="tech-lang">C++</div><div class="tech-role">Feed / Matching Engine</div></div>
@@ -1997,350 +768,241 @@ footer {
   </div>
 </section>
 
-<!-- ─── DEMO CTA ─── -->
-<section class="demo-section" id="demo">
-  <div class="demo-inner">
-    <div class="section-label demo-label">Talk to an engineer</div>
-    <div class="demo-title">Build your trading platform with confidence.</div>
-    <div class="demo-sub">We don't do generic demos. Book a session with a Tradelab engineer — bring your architecture, your ORMS, your exchange setup.</div>
+<!-- ── CERTS ── -->
+<div class="certs">
+  <div class="certs-inner">
+    <div class="cert-item"><span>🏅</span> ISO 9001:2015 Certified</div>
+    <div class="cert-item"><span>🔐</span> ISO 27001:2022 Certified</div>
+    <div class="cert-item"><span>⚖️</span> SEBI Cyber Framework Aligned</div>
+    <div class="cert-item"><span>🛡️</span> VAPT Compliant</div>
+    <div class="cert-item"><span>🏆</span> Forbes & D-Globalist Recognised</div>
+    <div class="cert-item"><span>🌐</span> Made with ♥ in India</div>
+  </div>
+</div>
 
+<!-- ── DEMO ── -->
+<section class="demo" id="demo">
+  <div class="demo-inner">
+    <div class="lbl w">Talk to an engineer</div>
+    <div class="demo-h">See it run on your stack.</div>
+    <div class="demo-sub">We don't do generic demos. Book a session with a Tradelab engineer — bring your architecture, your ORMS, your exchange setup. We'll show you exactly how it fits.</div>
     <div class="demo-form">
       <input type="text" placeholder="First name" />
       <input type="text" placeholder="Last name" />
-      <input type="email" placeholder="Work email" class="full" />
-      <input type="tel" placeholder="Phone number" />
-      <select>
-        <option value="" disabled selected>I'm a...</option>
-        <option>Broker / NBFC</option>
-        <option>Bank subsidiary</option>
-        <option>Exchange</option>
-        <option>Fintech / App builder</option>
-        <option>Algo / HFT firm</option>
-        <option>Other</option>
-      </select>
-      <button class="demo-submit full">
-        Talk to Us →
-      </button>
+      <input type="email" placeholder="work@company.com" class="full" />
+      <input type="tel" placeholder="+91 XXXXX XXXXX" />
+      <select><option value="" disabled selected>I'm a...</option><option>Broker / NBFC</option><option>Bank subsidiary</option><option>Exchange</option><option>Fintech / App builder</option><option>Algo / HFT firm</option><option>Other</option></select>
+      <button class="demo-submit full">Book a Demo →</button>
     </div>
-
     <div class="demo-trust">
       <span>🔒 No sales calls unless you want one</span>
       <span>⚡ Response within 24 hours</span>
       <span>🛡️ ISO 27001 certified</span>
+      <span>📍 Bangalore · Mumbai · Kolkata</span>
     </div>
   </div>
 </section>
 
-<!-- ─── FOOTER ─── -->
+<!-- ── FOOTER ── -->
 <footer>
-  <div class="footer-top">
-    <div class="footer-brand">
-      <div class="footer-brand-name">Tradelab</div>
-      <p>The trading infrastructure serious brokers run on. Built in India. Engineered for scale. Live since 2012.</p>
-      <div class="footer-certs">
-        <span class="cert">ISO 9001</span>
-        <span class="cert">ISO 27001</span>
-        <span class="cert">SEBI Compliant</span>
-      </div>
-    </div>
-
+  <div class="foot-top">
     <div>
-      <div class="footer-col-title">Platform</div>
-      <ul class="footer-links">
-        <li><a href="#">Primus Middleware</a></li>
-        <li><a href="#">Order Management</a></li>
-        <li><a href="#">Risk Management</a></li>
-        <li><a href="#">Trading Apps</a></li>
-        <li><a href="#">Octopus Feed Engine</a></li>
-        <li><a href="#">Optre Matching Engine</a></li>
+      <div class="foot-brand-name">Tradelab</div>
+      <div class="foot-tagline">Real-Time OMS & RMS Software for Brokers, Banks & Exchanges. Built in India. Live since 2012.</div>
+      <div class="foot-badges"><span class="fb">ISO 9001</span><span class="fb">ISO 27001</span><span class="fb">SEBI</span><span class="fb">VAPT</span></div>
+      <div class="foot-contact">info@tradelab.in · +91 95000 85937</div>
+    </div>
+    <div>
+      <div class="foot-col-h">Platform</div>
+      <ul class="foot-links">
+        <li><a href="#">Order & Risk Management</a></li>
+        <li><a href="#">KYC & Onboarding</a></li>
+        <li><a href="#">Trading Platform</a></li>
+        <li><a href="#">Exchange Infrastructure</a></li>
+        <li><a href="#">Market Data Engine</a></li>
       </ul>
     </div>
-
     <div>
-      <div class="footer-col-title">Solutions</div>
-      <ul class="footer-links">
+      <div class="foot-col-h">Solutions</div>
+      <ul class="foot-links">
         <li><a href="#">For Brokers</a></li>
         <li><a href="#">For Banks</a></li>
         <li><a href="#">For Exchanges</a></li>
-        <li><a href="#">Algo &amp; HFT</a></li>
-        <li><a href="#">White-label</a></li>
-        <li><a href="#">Stride KYC</a></li>
+        <li><a href="#">Algo & HFT</a></li>
+        <li><a href="#">White-label Apps</a></li>
+        <li><a href="#">Digital Onboarding</a></li>
       </ul>
     </div>
-
     <div>
-      <div class="footer-col-title">Company</div>
-      <ul class="footer-links">
+      <div class="foot-col-h">Company</div>
+      <ul class="foot-links">
         <li><a href="#">About Tradelab</a></li>
         <li><a href="#">Leadership</a></li>
         <li><a href="#">Careers</a></li>
-        <li><a href="#">Press &amp; Media</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="#">Press & Media</a></li>
+        <li><a href="#">Contact Us</a></li>
       </ul>
     </div>
-
     <div>
-      <div class="footer-col-title">Resources</div>
-      <ul class="footer-links">
-        <li><a href="#">Blog &amp; Insights</a></li>
+      <div class="foot-col-h">Resources</div>
+      <ul class="foot-links">
+        <li><a href="#">Blog & Insights</a></li>
         <li><a href="#">API Reference</a></li>
         <li><a href="#">Whitepapers</a></li>
         <li><a href="#">Events</a></li>
         <li><a href="#">Documentation</a></li>
+        <li><a href="#">Infra Requirements</a></li>
       </ul>
     </div>
   </div>
-
-  <div class="footer-bottom">
-    <span>© 2026 Tradelab Technologies Pvt. Ltd. All rights reserved.</span>
-    <span>info@tradelab.in · +91 95000 85937 · www.tradelab.in</span>
+  <div class="foot-bottom">
+    <div class="foot-copy">© 2026 Tradelab Technologies Pvt. Ltd. All rights reserved.</div>
+    <div class="foot-links-row">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Cookie Policy</a>
+      <span style="color:rgba(255,255,255,.2)">info@tradelab.in · +91 95000 85937 · www.tradelab.in</span>
+    </div>
   </div>
 </footer>
 
 <script>
-// ─── HERO ROTATING HEADLINES ───
-const headlines = [
-  { text: 'Built for Speed.<br>Designed for <em>Scale.</em>' },
-  { text: 'Control your trading.<br>We handle the <em>infrastructure.</em>' },
-  { text: 'Real-time OMS & RMS<br>for <em>modern markets.</em>' },
-  { text: 'From order placement<br>to exchange in <em>under 20ms.</em>' }
+// HERO HEADLINES
+const hls = [
+  'Built for Speed.<br>Designed for <em>Scale.</em>',
+  'Control your trading.<br>We handle the <em>infrastructure.</em>',
+  'Real-time OMS &amp; RMS<br>for <em>modern markets.</em>',
+  'From order placement<br>to exchange in <em>under 20ms.</em>',
+  'Exchange-grade execution.<br><em>Broker-ready</em> out of the box.'
 ];
-
-let hIdx = 0;
-const hEl = document.getElementById('hero-headline');
-
-function renderHeadline(obj, animate) {
-  const div = document.createElement('div');
-  div.innerHTML = obj.text;
-  div.style.cssText = 'transition:opacity 0.4s,transform 0.4s;' + (animate ? 'opacity:0;transform:translateY(14px)' : 'opacity:1;transform:none');
-  hEl.innerHTML = '';
-  hEl.appendChild(div);
-  if (animate) {
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      div.style.opacity = '1';
-      div.style.transform = 'translateY(0)';
-    }));
-  }
+let hi = 0;
+const hel = document.getElementById('hero-hl');
+function renderHl(txt, anim) {
+  const d = document.createElement('div');
+  d.innerHTML = txt;
+  d.style.cssText = 'transition:opacity .4s,transform .4s;' + (anim ? 'opacity:0;transform:translateY(14px)' : 'opacity:1;transform:none');
+  hel.innerHTML = ''; hel.appendChild(d);
+  if (anim) requestAnimationFrame(() => requestAnimationFrame(() => { d.style.opacity='1'; d.style.transform='translateY(0)'; }));
 }
-
-renderHeadline(headlines[0], false);
+renderHl(hls[0], false);
 setInterval(() => {
-  hIdx = (hIdx + 1) % headlines.length;
-  const old = hEl.firstChild;
-  if (old) {
-    old.style.opacity = '0';
-    old.style.transform = 'translateY(-14px)';
-    setTimeout(() => renderHeadline(headlines[hIdx], true), 300);
-  }
-}, 3500);
+  hi = (hi + 1) % hls.length;
+  const old = hel.firstChild;
+  if (old) { old.style.opacity='0'; old.style.transform='translateY(-14px)'; setTimeout(() => renderHl(hls[hi], true), 320); }
+}, 3800);
 
-// ─── LIVE ORDER COUNT ───
-let orderCount = 87432;
-function updateOrders() {
-  orderCount += Math.floor(Math.random() * 40 + 10);
-  const el = document.getElementById('orders-count');
-  if (el) el.textContent = orderCount.toLocaleString('en-IN');
-}
-setInterval(updateOrders, 1200);
+// LIVE ORDER COUNT
+let oc = 87432;
+setInterval(() => { oc += Math.floor(Math.random()*38+10); const e = document.getElementById('ord-count'); if(e) e.textContent = oc.toLocaleString('en-IN'); }, 1200);
 
-// ─── HERO CHART ───
-(function() {
-  const canvas = document.getElementById('hero-chart');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let frame = 0;
-  const W = 700, H = 160;
-  const prices = [];
-  let p = 85;
-  for (let i = 0; i < 48; i++) {
-    p += (Math.random() - 0.46) * 7;
-    p = Math.max(35, Math.min(125, p));
-    prices.push(p);
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-
-    // Grid lines
-    ctx.strokeStyle = 'rgba(0,0,0,0.05)';
-    ctx.lineWidth = 1;
-    for (let y = 0; y < H; y += 32) {
-      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
-    }
-    for (let x = 0; x < W; x += 70) {
-      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
-    }
-
-    // Area fill under line
-    const scaleY = v => H - (v / 160) * H * 0.82 - 10;
-    const stepX = (W - 20) / (prices.length - 1);
-
-    ctx.beginPath();
-    ctx.moveTo(10, H);
-    prices.forEach((price, i) => { ctx.lineTo(10 + i * stepX, scaleY(price)); });
-    ctx.lineTo(10 + (prices.length - 1) * stepX, H);
-    ctx.closePath();
-    const grad = ctx.createLinearGradient(0, 0, 0, H);
-    grad.addColorStop(0, 'rgba(232,25,44,0.1)');
-    grad.addColorStop(1, 'rgba(232,25,44,0.01)');
-    ctx.fillStyle = grad;
-    ctx.fill();
-
-    // Line
-    ctx.beginPath();
-    prices.forEach((price, i) => {
-      const x = 10 + i * stepX;
-      const y = scaleY(price);
-      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-    });
-    ctx.strokeStyle = '#E8192C';
-    ctx.lineWidth = 2;
-    ctx.stroke();
-
-    // Live dot
-    const lastX = 10 + (prices.length - 1) * stepX;
-    const lastY = scaleY(prices[prices.length - 1]);
-    ctx.globalAlpha = 0.3 + Math.abs(Math.sin(frame * 0.08)) * 0.5;
-    ctx.fillStyle = '#E8192C';
-    ctx.beginPath(); ctx.arc(lastX, lastY, 7, 0, Math.PI*2); ctx.fill();
-    ctx.globalAlpha = 1;
-    ctx.fillStyle = '#E8192C';
-    ctx.beginPath(); ctx.arc(lastX, lastY, 3.5, 0, Math.PI*2); ctx.fill();
-
-    frame++;
-    requestAnimationFrame(draw);
+// HERO CHART
+(function(){
+  const c = document.getElementById('hero-chart'); if(!c) return;
+  const ctx = c.getContext('2d');
+  let f = 0; const W=680,H=150;
+  const pts = []; let p=80;
+  for(let i=0;i<50;i++){p+=(Math.random()-.46)*7;p=Math.max(30,Math.min(120,p));pts.push(p);}
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.strokeStyle='rgba(0,0,0,.045)';ctx.lineWidth=1;
+    for(let y=0;y<H;y+=30){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+    const sy=v=>H-(v/150)*H*.82-10, sx=(W-20)/(pts.length-1);
+    ctx.beginPath();ctx.moveTo(10,H);
+    pts.forEach((v,i)=>ctx.lineTo(10+i*sx,sy(v)));
+    ctx.lineTo(10+(pts.length-1)*sx,H);ctx.closePath();
+    const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'rgba(232,25,44,.1)');g.addColorStop(1,'rgba(232,25,44,.01)');
+    ctx.fillStyle=g;ctx.fill();
+    ctx.beginPath();pts.forEach((v,i)=>{const x=10+i*sx,y=sy(v);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
+    ctx.strokeStyle='#E8192C';ctx.lineWidth=1.8;ctx.stroke();
+    const lx=10+(pts.length-1)*sx,ly=sy(pts[pts.length-1]);
+    ctx.globalAlpha=.3+Math.abs(Math.sin(f*.09))*.5;ctx.fillStyle='#E8192C';
+    ctx.beginPath();ctx.arc(lx,ly,7,0,Math.PI*2);ctx.fill();
+    ctx.globalAlpha=1;ctx.fillStyle='#E8192C';ctx.beginPath();ctx.arc(lx,ly,3.5,0,Math.PI*2);ctx.fill();
+    f++;requestAnimationFrame(draw);
   }
   draw();
 })();
 
-// ─── SOLUTIONS TABS ───
+// SOLUTIONS TABS
 function switchTab(id, btn) {
-  document.querySelectorAll('.solutions-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('panel-' + id).classList.add('active');
+  document.querySelectorAll('.sol-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
   btn.classList.add('active');
 }
 
-// ─── PRODUCT CANVAS ───
-function productCanvas(id, type) {
-  const c = document.getElementById('c-' + id);
-  if (!c) return;
-  const ctx = c.getContext('2d');
-  let f = 0;
-  const W = c.width, H = c.height;
-
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-
-    if (type === 'primus') {
-      const nodes = [{x:W/2,y:H/2},{x:W*0.15,y:H*0.22},{x:W*0.85,y:H*0.22},{x:W*0.12,y:H*0.78},{x:W*0.88,y:H*0.78},{x:W*0.5,y:H*0.07}];
-      nodes.slice(1).forEach((n, i) => {
-        const prog = (Math.sin(f*0.04+i)+1)/2;
-        ctx.globalAlpha = 0.15 + prog*0.25;
-        ctx.strokeStyle = '#E8192C'; ctx.lineWidth = 1.5;
-        ctx.beginPath(); ctx.moveTo(nodes[0].x, nodes[0].y); ctx.lineTo(n.x, n.y); ctx.stroke();
-        ctx.globalAlpha = prog;
-        ctx.fillStyle = '#E8192C';
-        ctx.beginPath(); ctx.arc(nodes[0].x+(n.x-nodes[0].x)*prog, nodes[0].y+(n.y-nodes[0].y)*prog, 3, 0, Math.PI*2); ctx.fill();
+// PRODUCT CANVASES
+function prodCanvas(id, type) {
+  const c = document.getElementById('c-'+id); if(!c) return;
+  const ctx = c.getContext('2d'); let f=0; const W=c.width,H=c.height;
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    if(type==='oms'){
+      const bars=[.35,.65,.5,.85,.6,.75,.45,.7];
+      bars.forEach((b,i)=>{
+        const h=H*.72*(b+Math.sin(f*.05+i)*.07);
+        ctx.fillStyle=i===4?'rgba(232,25,44,.7)':'rgba(0,0,0,.1)';
+        ctx.beginPath();ctx.roundRect(W*.06+i*(W*.115),H-h-8,W*.085,h,[3,3,0,0]);ctx.fill();
       });
-      ctx.globalAlpha = 1;
-      nodes.forEach((n,i) => {
-        ctx.fillStyle = i===0?'#0A0A0A':'rgba(107,114,128,0.4)';
-        ctx.beginPath(); ctx.arc(n.x, n.y, i===0?7:5, 0, Math.PI*2); ctx.fill();
+      ctx.strokeStyle='rgba(16,185,129,.4)';ctx.lineWidth=1.5;ctx.setLineDash([4,4]);
+      ctx.beginPath();ctx.moveTo(8,H*.24);ctx.lineTo(W-8,H*.24);ctx.stroke();ctx.setLineDash([]);
+    }
+    else if(type==='kyc'){
+      const steps=['Aadhaar','Video KYC','PAN','eSign'];
+      steps.forEach((s,i)=>{
+        const x=W*.12+i*(W*.22),y=H*.4,done=f*.02>i*.8;
+        ctx.fillStyle=done?'#10b981':'rgba(0,0,0,.1)';
+        ctx.beginPath();ctx.arc(x,y,16,0,Math.PI*2);ctx.fill();
+        if(done){ctx.fillStyle='#fff';ctx.font='bold 11px sans-serif';ctx.textAlign='center';ctx.fillText('✓',x,y+4);}
+        if(i<steps.length-1){ctx.strokeStyle=done?'rgba(16,185,129,.5)':'rgba(0,0,0,.08)';ctx.lineWidth=2;ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(x+16,y);ctx.lineTo(x+W*.22-16,y);ctx.stroke();ctx.setLineDash([]);}
+        ctx.fillStyle=done?'rgba(0,0,0,.5)':'rgba(0,0,0,.25)';ctx.font='11px sans-serif';ctx.textAlign='center';ctx.fillText(s,x,y+32);
       });
+      const progress=Math.min(1,(f*.02%4)/3.5);
+      ctx.fillStyle='rgba(16,185,129,.12)';ctx.beginPath();ctx.roundRect(W*.1,H*.68,W*.8,10,[5]);ctx.fill();
+      ctx.fillStyle='#10b981';ctx.beginPath();ctx.roundRect(W*.1,H*.68,W*.8*progress,10,[5]);ctx.fill();
+      ctx.fillStyle='rgba(0,0,0,.4)';ctx.font='bold 11px sans-serif';ctx.textAlign='center';
+      ctx.fillText(Math.floor(progress*120)+' sec'+'…',W/2,H*.9);
     }
-
-    else if (type === 'oms') {
-      const bars = [0.35,0.65,0.5,0.85,0.6,0.75,0.45,0.7];
-      bars.forEach((b,i) => {
-        const h = H*0.72*(b+Math.sin(f*0.05+i)*0.07);
-        ctx.fillStyle = i===4?'rgba(232,25,44,0.75)':'rgba(0,0,0,0.1)';
-        ctx.beginPath(); ctx.roundRect(W*0.06+i*(W*0.115), H-h-8, W*0.085, h, [3,3,0,0]); ctx.fill();
-      });
-      ctx.strokeStyle = 'rgba(16,185,129,0.45)'; ctx.lineWidth=1.5; ctx.setLineDash([4,4]);
-      ctx.beginPath(); ctx.moveTo(8,H*0.24); ctx.lineTo(W-8,H*0.24); ctx.stroke();
-      ctx.setLineDash([]);
+    else if(type==='app'){
+      const mw=58,mh=92,mx=W/2-mw/2,my=H/2-mh/2-4;
+      ctx.fillStyle='#111';ctx.beginPath();ctx.roundRect(mx,my,mw,mh,8);ctx.fill();
+      ctx.fillStyle='#f8f8f8';ctx.beginPath();ctx.roundRect(mx+2,my+2,mw-4,mh-4,6);ctx.fill();
+      ctx.fillStyle='#E8192C';ctx.fillRect(mx+4,my+12,mw-8,18);
+      [0,1,2,3].forEach(r=>{ctx.fillStyle='rgba(0,0,0,.08)';ctx.beginPath();ctx.roundRect(mx+4,my+36+r*11,mw-8-r*5,6,2);ctx.fill();});
+      ctx.fillStyle='#10b981';ctx.globalAlpha=.6+Math.sin(f*.1)*.4;ctx.beginPath();ctx.arc(mx+mw-7,my+7,3,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;
     }
-
-    else if (type === 'rms') {
-      const cx=W/2,cy=H*0.6,r=Math.min(W,H)*0.33;
-      ctx.strokeStyle='rgba(0,0,0,0.07)'; ctx.lineWidth=10;
-      ctx.beginPath(); ctx.arc(cx,cy,r,Math.PI,2*Math.PI); ctx.stroke();
-      const risk=0.35+Math.sin(f*0.025)*0.1;
-      const grad=ctx.createLinearGradient(cx-r,cy,cx+r,cy);
-      grad.addColorStop(0,'#10b981'); grad.addColorStop(0.6,'#f59e0b'); grad.addColorStop(1,'#E8192C');
-      ctx.strokeStyle=grad; ctx.lineWidth=10;
-      ctx.beginPath(); ctx.arc(cx,cy,r,Math.PI,Math.PI+Math.PI*risk); ctx.stroke();
-      const ang=Math.PI+Math.PI*risk;
-      ctx.fillStyle='#E8192C'; ctx.beginPath(); ctx.arc(cx+Math.cos(ang)*r,cy+Math.sin(ang)*r,5,0,Math.PI*2); ctx.fill();
-      ctx.fillStyle='rgba(0,0,0,0.5)'; ctx.font='bold 10px Syne,sans-serif'; ctx.textAlign='center';
-      ctx.fillText('RISK LEVEL',cx,cy+16);
-    }
-
-    else if (type === 'app') {
-      const mw=58,mh=96,mx=W/2-mw/2,my=H/2-mh/2-4;
-      ctx.fillStyle='#111'; ctx.beginPath(); ctx.roundRect(mx,my,mw,mh,8); ctx.fill();
-      ctx.fillStyle='#f8f8f8'; ctx.beginPath(); ctx.roundRect(mx+2,my+2,mw-4,mh-4,6); ctx.fill();
-      ctx.fillStyle='#E8192C'; ctx.fillRect(mx+4,my+12,mw-8,18);
-      [0,1,2,3].forEach(row=>{
-        ctx.fillStyle='rgba(0,0,0,0.09)'; ctx.beginPath();
-        ctx.roundRect(mx+4,my+36+row*11,mw-8-row*5,6,2); ctx.fill();
-      });
-      ctx.fillStyle='#10b981'; ctx.globalAlpha=0.6+Math.sin(f*0.1)*0.4;
-      ctx.beginPath(); ctx.arc(mx+mw-7,my+7,3,0,Math.PI*2); ctx.fill();
-      ctx.globalAlpha=1;
-    }
-
-    else if (type === 'feeds') {
-      ctx.strokeStyle='rgba(232,25,44,0.55)'; ctx.lineWidth=2;
-      ctx.beginPath();
-      for(let x=0;x<W;x+=2){
-        const y=H/2+Math.sin((x+f*2)*0.05)*(H*0.28)+Math.sin((x+f*3)*0.1)*(H*0.1);
-        x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
-      }
-      ctx.stroke();
-      ctx.strokeStyle='rgba(0,0,0,0.12)'; ctx.lineWidth=1.5;
-      ctx.beginPath();
-      for(let x=0;x<W;x+=2){
-        const y=H/2+Math.sin((x+f*2+30)*0.08)*(H*0.15);
-        x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
-      }
-      ctx.stroke();
-    }
-
-    else if (type === 'optre') {
-      ctx.strokeStyle='rgba(0,0,0,0.05)'; ctx.lineWidth=1;
-      for(let i=0;i<5;i++){
-        ctx.beginPath(); ctx.moveTo(0,H*0.18+i*(H*0.14)); ctx.lineTo(W,H*0.18+i*(H*0.14)); ctx.stroke();
-      }
+    else if(type==='exchange'){
       const strikes=[26000,26100,26200,26300,26400];
+      ctx.strokeStyle='rgba(0,0,0,.05)';ctx.lineWidth=1;
+      for(let i=0;i<5;i++){ctx.beginPath();ctx.moveTo(0,H*.18+i*(H*.14));ctx.lineTo(W,H*.18+i*(H*.14));ctx.stroke();}
       strikes.forEach((s,i)=>{
-        const y=H*0.22+i*(H*0.14);
-        ctx.fillStyle='rgba(0,0,0,0.5)'; ctx.font='bold 9px sans-serif'; ctx.textAlign='center';
-        ctx.fillText(s.toLocaleString(), W/2, y);
-        const cw=(0.3+Math.sin(f*0.02+i)*0.1)*(W*0.35);
-        ctx.fillStyle='rgba(16,185,129,0.2)'; ctx.fillRect(W/2-10-cw, y-7, cw, 10);
-        const pw=(0.25+Math.cos(f*0.02+i)*0.08)*(W*0.35);
-        ctx.fillStyle='rgba(232,25,44,0.18)'; ctx.fillRect(W/2+10, y-7, pw, 10);
+        const y=H*.22+i*(H*.14);
+        ctx.fillStyle='rgba(0,0,0,.45)';ctx.font='bold 9px sans-serif';ctx.textAlign='center';ctx.fillText(s.toLocaleString(),W/2,y);
+        const cw=(.3+Math.sin(f*.02+i)*.1)*(W*.35);ctx.fillStyle='rgba(16,185,129,.2)';ctx.fillRect(W/2-10-cw,y-7,cw,10);
+        const pw=(.25+Math.cos(f*.02+i)*.08)*(W*.35);ctx.fillStyle='rgba(232,25,44,.18)';ctx.fillRect(W/2+10,y-7,pw,10);
       });
     }
-
-    f++;
-    requestAnimationFrame(draw);
+    else if(type==='feeds'){
+      ctx.strokeStyle='rgba(232,25,44,.55)';ctx.lineWidth=2;
+      ctx.beginPath();
+      for(let x=0;x<W;x+=2){const y=H/2+Math.sin((x+f*2)*.05)*(H*.28)+Math.sin((x+f*3)*.1)*(H*.1);x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}
+      ctx.stroke();
+      ctx.strokeStyle='rgba(0,0,0,.1)';ctx.lineWidth=1.5;ctx.beginPath();
+      for(let x=0;x<W;x+=2){const y=H/2+Math.sin((x+f*2+30)*.08)*(H*.15);x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}
+      ctx.stroke();
+    }
+    f++;requestAnimationFrame(draw);
   }
   draw();
 }
-
-window.addEventListener('load', () => {
-  ['primus','oms','rms','app','feeds','optre'].forEach(id => productCanvas(id, id));
+window.addEventListener('load',()=>{
+  prodCanvas('oms','oms');prodCanvas('kyc','kyc');prodCanvas('app','app');
+  prodCanvas('exchange','exchange');prodCanvas('feeds','feeds');
 });
 
-// ─── SCROLL REVEAL ───
-const revealEls = document.querySelectorAll('.reveal, .stagger');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-revealEls.forEach(el => observer.observe(el));
+// SCROLL REVEAL
+const obs = new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal,.stagger').forEach(el=>obs.observe(el));
 </script>
 </body>
 </html>
