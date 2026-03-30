@@ -343,7 +343,8 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);paddin
           <a class="dd-item" href="#products"><div class="dd-icon">🔑</div><div class="dd-text"><div class="dd-title">KYC & Onboarding</div><div class="dd-desc">Digital onboarding in under 2 minutes</div></div></a>
           <a class="dd-item" href="#products"><div class="dd-icon">📱</div><div class="dd-text"><div class="dd-title">Trading Platform</div><div class="dd-desc">White-label web, mobile & dealer terminals</div></div></a>
           <a class="dd-item" href="#products"><div class="dd-icon">⚡</div><div class="dd-text"><div class="dd-title">Exchange Infrastructure</div><div class="dd-desc">Matching engine, &lt;20μs latency, 1M orders/sec</div></div></a>
-          <a class="dd-item" href="#products"><div class="dd-icon">📊</div><div class="dd-text"><div class="dd-title">Market Data</div><div class="dd-desc">C++ feed engine, microsecond data delivery</div></div></a>
+          <a class="dd-item" href="#products"><div class="dd-icon">📊</div><div class="dd-text"><div class="dd-title">Market Data Engine</div><div class="dd-desc">C++ feed engine, microsecond data delivery</div></div></a>
+          <a class="dd-item" href="#products"><div class="dd-icon">🐙</div><div class="dd-text"><div class="dd-title">Octopus Feed Engine</div><div class="dd-desc">Multi-exchange tick data, zero packet loss</div></div></a>
         </div>
         <div class="dropdown-divider"></div>
         <div class="dropdown-footer">
@@ -563,6 +564,15 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);paddin
         <div class="prod-name">Market Data Engine</div>
         <div class="prod-desc">C++ feed parser and WebSocket dissemination engine built for microsecond-level market data distribution across thousands of concurrent user streams.</div>
         <div class="chips"><span class="chip">C++ parser</span><span class="chip">WebSocket push</span><span class="chip">Multi-exchange</span><span class="chip">Tick data</span></div>
+      </div>
+
+      <div class="prod-card">
+        <span class="arr">↗</span>
+        <div class="prod-mock"><canvas id="c-octopus" width="280" height="128"></canvas></div>
+        <div class="prod-tag">Market Data</div>
+        <div class="prod-name">Octopus Feed Engine</div>
+        <div class="prod-desc">High-throughput market data infrastructure built on C++ with multi-threaded processing and intelligent load balancing. Distributes live tick data, depth, and index feeds across NSE, BSE, and MCX with microsecond normalisation — zero packet loss under peak market conditions.</div>
+        <div class="chips"><span class="chip">C++ parser</span><span class="chip">WebSocket</span><span class="chip">Multi-exchange</span><span class="chip">Zero packet loss</span><span class="chip">Depth feeds</span></div>
       </div>
 
     </div>
@@ -820,6 +830,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);paddin
         <li><a href="#">Trading Platform</a></li>
         <li><a href="#">Exchange Infrastructure</a></li>
         <li><a href="#">Market Data Engine</a></li>
+        <li><a href="#">Octopus Feed Engine</a></li>
       </ul>
     </div>
     <div>
@@ -991,13 +1002,35 @@ function prodCanvas(id, type) {
       for(let x=0;x<W;x+=2){const y=H/2+Math.sin((x+f*2+30)*.08)*(H*.15);x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}
       ctx.stroke();
     }
+    else if(type==='octopus'){
+      // Multi-line feed with upward trend arrow — matches reference image
+      const waves = [
+        { amp: H*.28, freq:.05, phase:0,   color:'rgba(232,25,44,.75)', w:2.2 },
+        { amp: H*.17, freq:.08, phase:30,  color:'rgba(0,0,0,.12)',     w:1.5 },
+      ];
+      waves.forEach(({amp,freq,phase,color,w})=>{
+        ctx.strokeStyle=color;ctx.lineWidth=w;ctx.beginPath();
+        for(let x=0;x<W;x+=2){
+          // Add gentle upward drift on the red line
+          const drift = (x/W)*H*.18;
+          const y=H/2+Math.sin((x+f*2+phase)*freq)*amp - drift;
+          x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+        }
+        ctx.stroke();
+      });
+      // Upward arrow at top-right (like reference)
+      const ax=W-22,ay=18;
+      ctx.strokeStyle='rgba(232,25,44,.7)';ctx.lineWidth=1.8;
+      ctx.beginPath();ctx.moveTo(ax-10,ay+10);ctx.lineTo(ax,ay);ctx.lineTo(ax-10,ay);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(ax,ay+10);ctx.stroke();
+    }
     f++;requestAnimationFrame(draw);
   }
   draw();
 }
 window.addEventListener('load',()=>{
   prodCanvas('oms','oms');prodCanvas('kyc','kyc');prodCanvas('app','app');
-  prodCanvas('exchange','exchange');prodCanvas('feeds','feeds');
+  prodCanvas('exchange','exchange');prodCanvas('feeds','feeds');prodCanvas('octopus','octopus');
 });
 
 // SCROLL REVEAL
